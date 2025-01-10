@@ -125,7 +125,7 @@
       "title": "Lead R&D Developer",
       "period": "Sep 2017 - Mar 2018",
       "duration": "7 mos",
-      "location": "Montreal, Canada Area",
+      "location": "Montreal, Canada",
       "description": "Spearheaded the enhancement and maintenance of proprietary software services within a high-performance VFX environment. Led initiatives to optimize codebase efficiency and modernize build systems utilizing Python, PySide, and Docker. Integrated cutting-edge solutions across Maya, Nuke, and Arnold platforms.",
       "skills": [
         "Python",
@@ -143,7 +143,7 @@
       "title": "Head of Pipeline",
       "period": "Nov 2016 - Jul 2017",
       "duration": "9 mos",
-      "location": "Montreal, Quebec, Canada",
+      "location": "Montreal, Canada",
       "description": "Advanced from Senior Developer to Head of Pipeline, leading a team of developers while driving innovation in production workflows. Architected Autodesk Flow Production Tracking integration with Kibana, implementing event handling systems and developing a nodal execution framework. Managed cross-functional teams using agile methodologies while overseeing technical decision-making across Maya, Nuke, and Katana platforms.",
       "skills": [
         "Python",
@@ -188,11 +188,11 @@
     },
     {
       "company": "Prime Focus",
-      "title": "Head of VFX Pipeline Mumbai",
+      "title": "Head of VFX Pipeline",
       "period": "Jan 2013 - Apr 2014",
       "duration": "1 yr 4 mos",
-      "location": "Mumbai Area, India",
-      "description": "Led and scaled a pipeline development team from 5 to 18 members within 12 months, transforming a support-focused group into an innovative development team. Established robust development practices and resolved critical technical challenges using Python, C++, and distributed systems. Implemented solutions utilizing RabbitMQ, Autodesk Flow Production Tracking, and CouchDB while managing team growth and technical direction.",
+      "location": "Mumbai, India",
+      "description": "Led and scaled the Mumbai pipeline development team from 5 to 18 members within 12 months, transforming a support-focused group into an innovative development team. Established robust development practices and resolved critical technical challenges using Python, C++, and distributed systems. Implemented solutions utilizing RabbitMQ, Autodesk Flow Production Tracking, and CouchDB while managing team growth and technical direction.",
       "skills": [
         "Team Management",
         "Team Building",
