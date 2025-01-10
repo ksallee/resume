@@ -1,0 +1,260 @@
+{
+  "name": "Kevin Sallée",
+  "title": "Senior Software Engineer",
+  "location": "Mexico / Remote",
+  "email": "kevin.sallee@gmail.com",
+  "summary": "Senior Software Engineer with 18 years of comprehensive experience specializing in full-stack development and pipeline architecture. Expert in Python development with proven success in building complex systems across multiple domains.<br><br>\n\nLed VFX pipeline development at major studios, scaling teams from 5 to 18 developers and architecting high-performance solutions. Extensive experience in studio pipeline development, including work at Cinesite, Rodeo FX, and Animal Logic.<br><br>\n\nTechnical expertise spans modern web technologies (FastAPI, Django, React, Svelte), DevOps practices (Docker, CI/CD, AWS), and UI development (Qt, Flutter). Strong background in cross-platform application development, real-time 3D graphics pipelines, and enterprise-grade database architecture.<br><br>\n\nCurrently focusing on Python for enterprise solutions while driving innovation with Svelte for modern web applications, with recent projects including offline-first PWAs and real-time monitoring systems.",
+  "skills": {
+    "programming": [
+      "Python",
+      "C++",
+      "JavaScript",
+      "HTML5",
+      "CSS",
+      "MEL"
+    ],
+    "frameworks": [
+      "Svelte",
+      "React",
+      "Redux",
+      "FastAPI",
+      "Django",
+      "Qt",
+      "PyQt/PySide",
+      "Flutter",
+      "Svelte Native",
+      "NativeScript"
+    ],
+    "devops": [
+      "Docker",
+      "CI/CD",
+      "AWS",
+      "Jenkins"
+    ],
+    "databases": [
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "SQLAlchemy"
+    ],
+    "gamedev": [
+      "Defold",
+      "Godot"
+    ],
+    "vfx": [
+      "Maya",
+      "Nuke",
+      "RV",
+      "Autodesk Flow Production Tracking",
+      "Tank",
+      "Hiero",
+      "Arnold",
+      "Computer Graphics",
+      "Computer Animation",
+      "3D",
+      "Shading",
+      "Shaders",
+      "Compositing",
+      "Visual Effects"
+    ],
+    "methodologies": [
+      "Agile Methodologies",
+      "Software Architecture",
+      "Documentation",
+      "Software Design",
+      "Problem Solving",
+      "Team Leadership",
+      "Pipeline Development",
+      "R&D"
+    ]
+  },
+  "experience": [
+    {
+      "company": "GPL Technologies",
+      "title": "Senior Software Engineer",
+      "period": "Apr 2019 - Jan 2025",
+      "duration": "5 yrs 10 mos",
+      "location": "Remote",
+      "skills": [
+        "Agile Methodologies",
+        "Troubleshooting",
+        "Software Architecture",
+        "Documentation",
+        "Software Design",
+        "CSS"
+      ],
+      "description": "Led development of mission-critical software solutions, implementing robust architectures and best practices. Specialized in building scalable applications while mentoring team members in agile methodologies and software design patterns."
+    },
+    {
+      "company": "One Drop",
+      "title": "Senior Contract Specialist",
+      "period": "Jun 2020 - Jun 2021",
+      "duration": "1 yr 1 mo",
+      "location": "Remote",
+      "contract": true,
+      "skills": [
+        "Troubleshooting",
+        "Software Architecture",
+        "Documentation",
+        "Software Design"
+      ],
+      "description": "Provided specialized software architecture consulting, focusing on system optimization and technical documentation. Delivered strategic solutions for complex software challenges while ensuring adherence to best practices and design principles."
+    },
+    {
+      "company": "Sano Intelligence",
+      "title": "Software Engineer",
+      "period": "Mar 2018 - Oct 2018",
+      "location": "Hybrid San Francisco / Remote",
+      "duration": "8 mos",
+      "description": "Developed sophisticated GUI applications for multi-microcontroller system management, implementing comprehensive device control interfaces for motors and temperature sensors. Leveraged Test-Driven Development methodology while utilizing Python, PyQt, AWS, and MySQL to create robust, scalable solutions.",
+      "skills": [
+        "Python",
+        "PyQt",
+        "Git",
+        "Jenkins",
+        "AWS",
+        "MySQL",
+        "SQLAlchemy",
+        "TDD"
+      ]
+    },
+    {
+      "company": "Cinesite",
+      "title": "Lead R&D Developer",
+      "period": "Sep 2017 - Mar 2018",
+      "duration": "7 mos",
+      "location": "Montreal, Canada Area",
+      "description": "Spearheaded the enhancement and maintenance of proprietary software services within a high-performance VFX environment. Led initiatives to optimize codebase efficiency and modernize build systems utilizing Python, PySide, and Docker. Integrated cutting-edge solutions across Maya, Nuke, and Arnold platforms.",
+      "skills": [
+        "Python",
+        "PySide",
+        "Docker",
+        "Fabric",
+        "Elastic",
+        "Maya",
+        "Nuke",
+        "Arnold"
+      ]
+    },
+    {
+      "company": "Rodeo FX",
+      "title": "Head of Pipeline",
+      "period": "Nov 2016 - Jul 2017",
+      "duration": "9 mos",
+      "location": "Montreal, Quebec, Canada",
+      "description": "Advanced from Senior Developer to Head of Pipeline, leading a team of developers while driving innovation in production workflows. Architected Autodesk Flow Production Tracking integration with Kibana, implementing event handling systems and developing a nodal execution framework. Managed cross-functional teams using agile methodologies while overseeing technical decision-making across Maya, Nuke, and Katana platforms.",
+      "skills": [
+        "Python",
+        "Autodesk Flow Production Tracking",
+        "Pipeline Development",
+        "Team Leadership",
+        "Redis",
+        "Maya",
+        "Nuke",
+        "Katana"
+      ]
+    },
+    {
+      "company": "Animal Logic",
+      "title": "Senior Pipeline Developer",
+      "period": "Mar 2015 - Feb 2016",
+      "duration": "1 yr",
+      "location": "Sydney, Australia",
+      "description": "Engineered advanced pipeline solutions for a premier animation studio, developing PySide tools for procedural systems and implementing USD integration within Maya. Created innovative layer-based control systems for execution graphs while maintaining and enhancing core pipeline functionality.",
+      "skills": [
+        "Python",
+        "PySide",
+        "PyQt",
+        "Maya",
+        "Nuke",
+        "USD"
+      ]
+    },
+    {
+      "company": "Pipangaï",
+      "title": "Senior Pipeline Engineer",
+      "period": "May 2014 - Mar 2015",
+      "duration": "11 mos",
+      "location": "Le Port, Reunion Island",
+      "description": "Architected and maintained the complete pipeline infrastructure for the feature film Adama using Autodesk Flow Production Tracking Pipeline Toolkit. Developed comprehensive publishing and scene creation tools, streamlining workflow efficiency across all departments.",
+      "skills": [
+        "Autodesk Flow Production Tracking",
+        "Pipeline Development",
+        "Python",
+        "PySide"
+      ]
+    },
+    {
+      "company": "Prime Focus",
+      "title": "Head of VFX Pipeline Mumbai",
+      "period": "Jan 2013 - Apr 2014",
+      "duration": "1 yr 4 mos",
+      "location": "Mumbai Area, India",
+      "description": "Led and scaled a pipeline development team from 5 to 18 members within 12 months, transforming a support-focused group into an innovative development team. Established robust development practices and resolved critical technical challenges using Python, C++, and distributed systems. Implemented solutions utilizing RabbitMQ, Autodesk Flow Production Tracking, and CouchDB while managing team growth and technical direction.",
+      "skills": [
+        "Team Management",
+        "Team Building",
+        "Problem Solving",
+        "Python",
+        "PySide",
+        "C++",
+        "RabbitMQ",
+        "Autodesk Flow Production Tracking",
+        "CouchDB"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "ENSIIE - École Nationale Supérieure d'Informatique pour l'Industrie et l'Entreprise",
+      "degree": "Master of Science - MS, Computer Science",
+      "period": "2003 - 2006",
+      "description": "Computer engineering school. Programming languages, networks, finance, mathematics for computing, assembly languages, object oriented languages, etc. Focus on programming theory, mathematics, and CGI."
+    },
+    {
+      "school": "CREAPOLE",
+      "degree": "Computer Graphics",
+      "period": "2006 - 2007",
+      "description": "Learned 3D modeling, texturing & shading, animation, lighting, rendering. Fine arts, drawing, storyboard, etc."
+    },
+    {
+      "school": "lycée privé sainte geneviève",
+      "period": "2001 - 2003",
+      "description": "University-level preparation for the nation-wide competitive entrance exams of the French 'Grandes Ecoles'. Highly focused on mathematics (25+ hours a week) and physics (10+ hours a week)"
+    }
+  ],
+  "languages": [
+    {
+      "name": "English",
+      "level": "Full professional proficiency"
+    },
+    {
+      "name": "French",
+      "level": "Native or bilingual proficiency"
+    },
+    {
+      "name": "Spanish",
+      "level": "Native or bilingual proficiency"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Alerta Abejas",
+      "url": "https://alerta-abejas.web.app/",
+      "description": "Progressive Web App for tracking and reporting bee-related incidents. Built with offline-first architecture and mobile-responsive design. Features geolocation integration and real-time data synchronization.",
+      "tech": ["PWA", "Firebase", "Offline-First", "Geolocation API", "Svelte"]
+    },
+    {
+      "title": "Green Wave Report",
+      "url": "https://greenwavereport.netlify.app/",
+      "description": "Real-time monitoring dashboard for the Green Wave surf feature in Bend, OR. Integrates multiple data sources to display live stream, CFS measurements, and temperature analytics.",
+      "tech": ["Svelte", "Real-time Data", "Data Visualization", "API Integration"]
+    },
+    {
+      "title": "Midjourney Prompt Generator",
+      "url": "https://midjourney-prompt-generator.netlify.app/",
+      "description": "AI-powered tool leveraging ChatGPT 3.5 to generate contextual Midjourney prompts. Features multiple professional personas for varied creative approaches.",
+      "tech": ["ChatGPT API", "Svelte", "AI Integration"]
+    }
+  ]
+}
