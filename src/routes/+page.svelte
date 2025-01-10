@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from 'svelte';
   const { data } = $props();
   let profile = $state(data.profile);
   let sortedCategories = $derived([
@@ -13,11 +12,6 @@
   ]);
 </script>
 
-<svelte:head>
-	<title>{profile.name} - Resume</title>
-	<meta name="description" content="{profile.summary}" />
-	<meta name="author" content="{profile.name}" />
-</svelte:head>
 <div class="resume-container">
   <header class="header">
   <img src="/me.jpg" alt="{profile.name}'s photo" class="profile-image" />
