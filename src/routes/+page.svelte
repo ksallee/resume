@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   const { data } = $props();
   let profile = $state(data.profile);
-  let categories = $derived(Object.keys(profile.skills).filter(cat => cat !== 'endorsements'));
   let sortedCategories = $derived([
     'programming',
     'frameworks',
@@ -11,13 +10,12 @@
     'vfx',
     'gamedev',
     'methodologies'
-  ].filter(cat => categories.includes(cat)));
+  ]);
 </script>
 
 <svelte:head>
 	<title>{profile.name} - Resume</title>
 	<meta name="description" content="{profile.summary}" />
-	<meta name="keywords" content="{profile.skills.endorsements.join(', ')}" />
 	<meta name="author" content="{profile.name}" />
 </svelte:head>
 <div class="resume-container">

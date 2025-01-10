@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 export const load = async () => {
     const filePath = join(__dirname, '../../static/data/resume.json');
     const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-
+    console.log("data", data.skills);
     return {
         profile: data
     };
