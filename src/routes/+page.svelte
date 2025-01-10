@@ -26,7 +26,8 @@
     <h1>{profile.name}</h1>
     <h2>{profile.title}</h2>
     <p>{profile.location}</p>
-		<a href="mailto:{profile.email}">{profile.email}</a>
+		<p><a href="mailto:{profile.email}">{profile.email}</a></p>
+		<p><a href={profile.linkedin} target="_blank" rel="noopener noreferrer">{profile.linkedin}</a></p>
   </div>
 
 </header>
