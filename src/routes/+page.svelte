@@ -72,7 +72,7 @@
 
       <!-- Projects -->
       <section>
-        <h3 class="section-title">Projects</h3>
+        <h3 class="section-title">Personal Projects</h3>
         {#each profile.projects as project}
           <div class="project-item">
             <div class="project-header">
