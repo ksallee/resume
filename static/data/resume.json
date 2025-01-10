@@ -59,13 +59,14 @@
     ],
     "methodologies": [
       "Agile Methodologies",
+      "Test-Driven Development",
       "Software Architecture",
-      "Documentation",
       "Software Design",
       "Problem Solving",
       "Team Leadership",
       "Pipeline Development",
-      "R&D"
+      "R&D",
+      "Documentation"
     ]
   },
   "experience": [
