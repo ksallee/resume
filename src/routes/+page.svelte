@@ -17,7 +17,7 @@
 	<title>{profile.name} - Resume</title>
 	<meta name="description" content="{profile.summary}" />
 	<meta name="author" content="{profile.name}" />
-	<meta name="image" content="/me.jpg" />
+	<meta name="image" content="{profile.picture}" />
 </svelte:head>
 <div class="resume-container">
   <header class="header">
