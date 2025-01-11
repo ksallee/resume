@@ -149,7 +149,7 @@
   display: grid;
   grid-template-columns: 1fr 300px;
   gap: 16px;
-  align-items: start; /* Ensures content aligns at the top */
+  align-items: start;
   margin-top: 16px;
 }
 
@@ -177,15 +177,15 @@
 }
 
 .header-text {
-  flex: 1; /* Ensures the text takes up available space */
+  flex: 1;
 }
 
 .profile-image {
-  width: 120px; /* Set the desired size */
+  width: 120px;
   height: 120px;
-  border-radius: 50%; /* Makes the image circular */
-  object-fit: cover; /* Ensures the image scales without distortion */
-  border: 2px solid var(--color-neutral-200); /* Optional border */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-neutral-200);
 }
 
 .header h1 {
@@ -216,7 +216,7 @@
   border-radius: var(--radius-lg);
   padding: 16px;
   box-shadow: var(--shadow-sm);
-  align-self: start; /* Makes the sidebar's height determined by its content */
+  align-self: start;
 }
 
 .section-title {
