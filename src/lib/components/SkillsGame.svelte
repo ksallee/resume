@@ -1,12 +1,11 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { Spring } from 'svelte/motion';
+	import { Spring, Tween } from 'svelte/motion';
 	import AudioManager from './AudioManager.svelte';
 
-
 	const { skills, skillElements } = $props();
-
+	const MAX_LASERS = 3;
 	const SKILL_SCALE_FACTOR = 1.3;
 	const SCORE_VALUES = {
 		easy: 1,
@@ -15,9 +14,16 @@
 	};
 
 	const DIFFICULTY_SETTINGS = {
-		easy: { spawnInterval: 3000, maxSkills: 4, skillSpeed: 0.3 },
-		medium: { spawnInterval: 2000, maxSkills: 5, skillSpeed: 0.4 },
-		hard: { spawnInterval: 1000, maxSkills: 5, skillSpeed: 0.6 }
+		typing: {
+			easy: { spawnInterval: 3000, maxSkills: 4, skillSpeed: 0.3 },
+			medium: { spawnInterval: 2000, maxSkills: 5, skillSpeed: 0.4 },
+			hard: { spawnInterval: 1000, maxSkills: 5, skillSpeed: 0.6 }
+		},
+		classic: {
+			easy: { spawnInterval: 1500, maxSkills: 8, skillSpeed: 0.8 },
+			medium: { spawnInterval: 500, maxSkills: 10, skillSpeed: 1.0 },
+			hard: { spawnInterval: 300, maxSkills: 15, skillSpeed: 1.2 }
+		}
 	};
 
 	let gameActive = $state(false);
@@ -31,13 +37,24 @@
 	let laserElements = $state([]);
 	let particles = $state([]);
 	let mounted = $state(false);
-	let shipRotation = $state(90);
 	let shipShaking = $state(false);
 	let difficulty = $state(null);
 	let showDifficultySelect = $state(false);
 	let isGameOver = $state(false);
 	let musicEnabled = $state(true);
 	let sfxEnabled = $state(true);
+	let gameMode = $state('classic');
+	let activeLasers = $state([]);
+
+	let innerHeight = $state(0)
+
+	// New state variables for vertical movement
+	let keysPressed = $state(new Set());
+	let maxShipSpeed = 5;
+	let shipTween = $state(new Tween(innerHeight / 2, {
+		duration: 100,
+		// easing: t => t // Linear easing for more responsive control
+	}));
 
 	let playSound = $state(() => {});
 	let toggleMusic = $state((enabled) => {
@@ -93,11 +110,12 @@
 		soundPlayer?.('explosion');
 		const particleCount = 40;
 		const newParticles = [];
+		const baseId = Math.random();
 		for (let i = 0; i < particleCount; i++) {
 			const angle = (i * 360 / particleCount) * (Math.PI / 180);
-			const randomSpeed = 1 + Math.random() * 4; // Randomized speed
+			const randomSpeed = 1 + Math.random() * 4;
 			newParticles.push({
-				id: Date.now() + i,
+				id: `${baseId}-${i}`,
 				x,
 				y,
 				angle,
@@ -124,6 +142,77 @@
 		requestAnimationFrame(animateParticles);
 	};
 
+	const shootClassicLaser = () => {
+		if (activeLasers.length >= MAX_LASERS) return;
+
+		soundPlayer?.('laser');
+		const aircraftPos = getElementPosition(aircraft);
+		if (!aircraftPos) return;
+
+		const newLaser = {
+			x: aircraftPos.x,
+			y: aircraftPos.y,
+			angle: 0, // Always shoot horizontally
+			speed: 10,
+			id: Date.now()
+		};
+
+		activeLasers = [...activeLasers, newLaser];
+
+		const animateLaser = () => {
+			if (!gameActive) return;
+
+			activeLasers = activeLasers.map(laser => ({
+				...laser,
+				x: laser.x + Math.cos(laser.angle) * laser.speed,
+				y: laser.y + Math.sin(laser.angle) * laser.speed
+			})).filter(laser => {
+				// Check for collisions with skills
+				const hitSkills = new Set();
+				activeSkills.forEach(skill => {
+					const skillCenter = {
+						x: skill.currentX + skill.width / 2,
+						y: skill.currentY + skill.height / 2
+					};
+
+					const distance = Math.hypot(
+						laser.x - skillCenter.x,
+						laser.y - skillCenter.y
+					);
+
+					if (distance < 30) {
+						hitSkills.add(skill.id);
+						setTimeout(() => {
+							createParticles(skillCenter.x, skillCenter.y);
+							score += SCORE_VALUES[difficulty];
+							if (score > highScore) {
+								highScore = score;
+								localStorage.setItem('skillGameHighScore', highScore.toString());
+							}
+						}, 0);
+					}
+				});
+
+				activeSkills = activeSkills.filter(skill => !hitSkills.has(skill.id));
+
+				// Remove laser if it hit something or is off screen
+				const isOffScreen =
+					laser.x < 0 ||
+					laser.x > window.innerWidth ||
+					laser.y < 0 ||
+					laser.y > window.innerHeight;
+
+				return !hitSkills.size && !isOffScreen;
+			});
+
+			if (activeLasers.length > 0) {
+				requestAnimationFrame(animateLaser);
+			}
+		};
+
+		requestAnimationFrame(animateLaser);
+	};
+
 	const shootLaser = (skill) => {
 		soundPlayer?.('laser');
 		const aircraftPos = getElementPosition(aircraft);
@@ -135,7 +224,6 @@
 		};
 
 		const angle = calculateAngle(aircraftPos, skillPos);
-		shipRotation = (angle * 180 / Math.PI) + 90;
 
 		const distance = Math.hypot(skillPos.x - aircraftPos.x, skillPos.y - aircraftPos.y);
 
@@ -207,9 +295,9 @@
 		if (!aircraftPos) return;
 
 		const angle = calculateAngle(startPos, aircraftPos);
-		const speed = DIFFICULTY_SETTINGS[difficulty].skillSpeed * (0.9 + Math.random() * 0.2);
+		const settings = DIFFICULTY_SETTINGS[gameMode][difficulty];
+		const speed = settings.skillSpeed * (0.9 + Math.random() * 0.2);
 
-		// Start with original size and delay the scale up
 		setTimeout(() => {
 			skillSpring.target = SKILL_SCALE_FACTOR;
 		}, 300);
@@ -238,7 +326,9 @@
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
-		shipRotation = 90;
+		activeLasers = [];
+		shipTween.set(window.innerHeight / 2);
+		keysPressed.clear();
 		skillSpring.target = 1;
 	};
 
@@ -260,7 +350,9 @@
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
-		shipRotation = 90;
+		activeLasers = [];
+		shipTween.set(window.innerHeight / 2);
+		keysPressed.clear();
 		skillSpring.target = 1;
 
 		if (typeof window !== 'undefined') {
@@ -274,9 +366,10 @@
 			}, 0);
 		}
 
+		const settings = DIFFICULTY_SETTINGS[gameMode][difficulty];
 		setTimeout(() => {
 			gameLoop = setInterval(() => {
-				if (activeSkills.length < DIFFICULTY_SETTINGS[difficulty].maxSkills) {
+				if (activeSkills.length < settings.maxSkills) {
 					const availableSkills = allSkills.filter((skill, index) =>
 						skillElements[index] && !activeSkills.some(active => active.text === skill)
 					);
@@ -287,7 +380,7 @@
 						launchSkill(skill, index);
 					}
 				}
-			}, DIFFICULTY_SETTINGS[difficulty].spawnInterval);
+			}, settings.spawnInterval);
 		}, 100);
 
 		const animate = () => {
@@ -311,6 +404,7 @@
 					skill.currentY - aircraftPos.y
 				);
 
+				// Check for collision with aircraft
 				if (distanceToAircraft < 30) {
 					lives--;
 					soundPlayer?.('collision');
@@ -325,6 +419,23 @@
 					}
 					return false;
 				}
+
+				// Check if skill has gone off the left side of the screen in classic mode
+				if (gameMode === 'classic' && skill.currentX < -50) {
+					lives--;
+					soundPlayer?.('collision');
+					shipShaking = true;
+					setTimeout(() => {
+						shipShaking = false;
+					}, 500);
+
+					if (lives <= 0) {
+						soundPlayer?.('gameOver');
+						showGameOver();
+					}
+					return false;
+				}
+
 				return true;
 			});
 
@@ -337,12 +448,14 @@
 	const endGame = () => {
 		gameActive = false;
 		isGameOver = false;
-		showDifficultySelect = false;  // Add this line to close difficulty screen
+		showDifficultySelect = false;
 		if (gameLoop) clearInterval(gameLoop);
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
-		shipRotation = 90;
+		activeLasers = [];
+		shipTween.set(window.innerHeight / 2);
+		keysPressed.clear();
 		skillSpring.target = 1;
 		difficulty = null;
 		if (typeof window !== 'undefined') {
@@ -353,7 +466,6 @@
 
 	const resetSkill = (skill) => {
 		soundPlayer?.('wrong');
-		// Don't shake or reset if the skill is fully matched
 		if (skill.matchedChars === skill.normalizedText.length) return;
 
 		skill.matchedChars = 0;
@@ -365,31 +477,76 @@
 		}, 300);
 	};
 
-	const handleKeydown = (event) => {
+	// Updated classic mode controls
+	const handleClassicControls = (event) => {
+		if (!gameActive || gameMode !== 'classic') return;
 
+		if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+			event.preventDefault();
+			keysPressed.add(event.key);
+		} else if (event.key === ' ') {
+			event.preventDefault();
+			shootClassicLaser();
+		}
+	};
+
+	// Add ship movement animation
+	const animateShip = () => {
+		if (!gameActive || gameMode !== 'classic') return;
+
+		// Update velocity based on keys pressed
+		let velocity = 0;
+		if (keysPressed.has('ArrowUp')) {
+			velocity = -maxShipSpeed;
+		} else if (keysPressed.has('ArrowDown')) {
+			velocity = maxShipSpeed;
+		}
+
+		if (velocity !== 0) {
+			const newPosition = shipTween.target + velocity;
+			// Constrain ship position to window bounds with some padding
+			const minY = 50; // Top padding
+			const maxY = window.innerHeight - 50; // Bottom padding
+			shipTween.set(Math.max(minY, Math.min(maxY, newPosition)));
+		}
+
+		requestAnimationFrame(animateShip);
+	};
+
+	// Add keyup handler
+	const handleKeyup = (event) => {
+		if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+			keysPressed.delete(event.key);
+		}
+	};
+
+	const handleKeydown = (event) => {
 		if (event.key === 'Escape') {
-			console.log('Escape key pressed');
 			endGame();
 			return;
 		}
 		if (!gameActive) return;
 
-		event.preventDefault();
+		if (gameMode === 'classic') {
+			handleClassicControls(event);
+			return;
+		}
 
-		const key = event.key;
-		if (key === 'Shift') return;
+		// Typing mode logic
+		event.preventDefault();
+		if (event.key === 'Shift') return;
 
 		activeSkills = activeSkills.map(skill => {
 			const targetChar = skill.normalizedText[skill.matchedChars];
 
-			if (targetChar === key) {
+			if (targetChar === event.key) {
 				const newMatchedChars = skill.matchedChars + 1;
 				if (newMatchedChars === skill.normalizedText.length) {
 					shootLaser(skill);
 					return { ...skill, matchedChars: newMatchedChars };
 				}
 				return { ...skill, matchedChars: newMatchedChars };
-			} else if (skill.matchedChars > 0 && key !== targetChar) {
+			} else if (skill.matchedChars > 0 && event.key !== targetChar) {
 				resetSkill(skill);
 			}
 			return skill;
@@ -400,6 +557,13 @@
 		difficulty = level;
 		startGame();
 	};
+
+	// Start the animation loop when game mode is classic
+	$effect(() => {
+		if (gameMode === 'classic' && gameActive) {
+			animateShip();
+		}
+	});
 
 	onDestroy(() => {
 		if (gameLoop) clearInterval(gameLoop);
@@ -415,12 +579,12 @@
 	onclose={() => gameActive = false}
 >
 	<AudioManager
-  {gameActive}
-  showingMenu={showDifficultySelect}
-  {musicEnabled}
-  {sfxEnabled}
-  on:playSound={(e) => soundPlayer = e.detail}
-/>
+		{gameActive}
+		showingMenu={showDifficultySelect}
+		{musicEnabled}
+		{sfxEnabled}
+		on:playSound={(e) => soundPlayer = e.detail}
+	/>
 
 	{#if gameActive || isGameOver}
 		<!-- Player ship -->
@@ -428,23 +592,35 @@
 			class="aircraft"
 			class:shaking={shipShaking}
 			bind:this={aircraft}
-			style="--rotation: {shipRotation}deg"
+			style="top: {shipTween.current}px;"
 			in:fade
 		>
 			<img src="/ship.svg" alt="spaceship" class="ship-icon" />
 		</div>
 
-		<!-- Lasers -->
+		<!-- Classic Mode Lasers -->
+		{#each activeLasers as laser (laser.id)}
+        <div
+            class="classic-laser"
+            style="
+                left: {laser.x}px;
+                top: {laser.y}px;
+                transform: translate(-50%, -50%);
+            "
+        ></div>
+    {/each}
+
+		<!-- Typing Mode Lasers -->
 		{#each laserElements as laser (laser.id)}
 			<div
 				class="laser-wrapper"
 				style="
-          position: fixed;
-          left: {laser.startX - 20 + (laser.endX - laser.startX) * laser.progress}px;
-          top: {laser.startY - 20 + (laser.endY - laser.startY) * laser.progress}px;
-          transform: rotate({(laser.angle * 180 / Math.PI)}deg);
-          z-index: 45;
-        "
+					position: fixed;
+					left: {laser.startX - 20 + (laser.endX - laser.startX) * laser.progress}px;
+					top: {laser.startY - 20 + (laser.endY - laser.startY) * laser.progress}px;
+					transform: rotate({(laser.angle * 180 / Math.PI)}deg);
+					z-index: 45;
+				"
 			>
 				<img
 					src="/laser.svg"
@@ -459,10 +635,10 @@
 			<div
 				class="particle"
 				style="
-          left: {particle.x}px;
-          top: {particle.y}px;
-          opacity: {particle.life};
-        "
+					left: {particle.x}px;
+					top: {particle.y}px;
+					opacity: {particle.life};
+				"
 			></div>
 		{/each}
 
@@ -472,18 +648,22 @@
 				class="flying-skill skill-tag"
 				class:shake={skill.shake}
 				style="
-          left: {skill.currentX}px;
-          top: {skill.currentY}px;
-          transform: scale({skillSpring.current});
-        "
+					left: {skill.currentX}px;
+					top: {skill.currentY}px;
+					transform: scale({skillSpring.current});
+				"
 				in:fade={{duration: 200}}
 				out:fade={{duration: 300}}
 			>
-				{#each skill.normalizedText.split('') as char, i}
-          <span class={i < skill.matchedChars ? 'matched-char' : ''}>
-            {char}
-          </span>
-				{/each}
+				{#if gameMode === 'typing'}
+					{#each skill.normalizedText.split('') as char, i}
+						<span class={i < skill.matchedChars ? 'matched-char' : ''}>
+							{char}
+						</span>
+					{/each}
+				{:else}
+					{skill.text}
+				{/if}
 			</div>
 		{/each}
 
@@ -495,11 +675,11 @@
 				<p class="high-score">High Score: {highScore}</p>
 				<div class="game-over-buttons">
 					<button class="retry-button" onclick={() => {
-            isGameOver = false;
-            difficulty = null;
-            showDifficultySelect = true;
+						isGameOver = false;
+						difficulty = null;
+						showDifficultySelect = true;
 						if (dialog?.close) dialog.close();
-          }}>
+					}}>
 						Play Again
 					</button>
 					<button class="quit-button" onclick={endGame}>
@@ -519,7 +699,13 @@
 						<div class="stat">Lives: {lives}</div>
 					</div>
 					<div class="controls">
-						<div class="instructions">Type the letters to destroy skills!</div>
+						<div class="instructions">
+							{#if gameMode === 'typing'}
+								Type the letters to destroy skills!
+							{:else}
+								Use UP/DOWN to move, SPACE to shoot!
+							{/if}
+						</div>
 						<button
 							class="end-game-button"
 							onclick={endGame}
@@ -537,16 +723,33 @@
 {#if showDifficultySelect}
 	<div class="difficulty-select" in:fade>
 		<h1 class="audiowide-regular">SKILL DESTROYER</h1>
-		<p class="difficulty-instructions">
-			Type the letters to destroy the skills before they reach your ship!
+
+		<div class="mode-selector">
+			<button
+				class="mode-button audiowide-regular"
+				class:active={gameMode === 'classic'}
+				onclick={() => gameMode = 'classic'}
+			>
+				Classic Mode
+			</button>
+			<button
+				class="mode-button audiowide-regular"
+				class:active={gameMode === 'typing'}
+				onclick={() => gameMode = 'typing'}
+			>
+				Typing Mode
+			</button>
+
+		</div>
+
+		<p class="mode-description">
+			{#if gameMode === 'typing'}
+				Type the letters to destroy the skills before they reach your ship!
+			{:else}
+				Use UP/DOWN to move and SPACE to shoot!
+			{/if}
 		</p>
-		<p class="difficulty-instructions">
-			The harder the difficulty, the more points you get.
-			</p>
-		<p class="difficulty-instructions">
-			Watch out, you only have 3 lifes!
-		</p>
-		<h1 class="audiowide-regular">Good luck, pilot!</h1>
+
 		<div class="difficulty-buttons">
 			<button
 				class="difficulty-button"
@@ -572,23 +775,23 @@
 		</div>
 
 		<div class="audio-settings">
-  <label class="audio-option">
-    <input
-      type="checkbox"
-      checked={musicEnabled}
-      onchange={(e) => toggleMusic(e.target.checked)}
-    />
-    <span>Music</span>
-  </label>
-  <label class="audio-option">
-    <input
-      type="checkbox"
-      checked={sfxEnabled}
-      onchange={(e) => toggleSFX(e.target.checked)}
-    />
-    <span>Sound Effects</span>
-  </label>
-</div>
+			<label class="audio-option">
+				<input
+					type="checkbox"
+					checked={musicEnabled}
+					onchange={(e) => toggleMusic(e.target.checked)}
+				/>
+				<span>Music</span>
+			</label>
+			<label class="audio-option">
+				<input
+					type="checkbox"
+					checked={sfxEnabled}
+					onchange={(e) => toggleSFX(e.target.checked)}
+				/>
+				<span>Sound Effects</span>
+			</label>
+		</div>
 	</div>
 {/if}
 
@@ -601,10 +804,13 @@
 	</button>
 </div>
 
-<svelte:window onkeydown={handleKeydown} />
+<svelte:window
+	onkeydown={handleKeydown}
+	onkeyup={handleKeyup}
+	bind:innerHeight
+/>
 
 <style>
-	/* Dialog styles */
 	.game-dialog {
 		position: fixed;
 		inset: 0;
@@ -623,24 +829,21 @@
 	}
 
 	@keyframes shipShake {
-		0%, 100% { transform: translateY(-50%) rotate(calc(var(--rotation) + 0deg)) translateX(0); }
-		25% { transform: translateY(-50%) rotate(calc(var(--rotation) - 7deg)) translateX(-5px); }
-		75% { transform: translateY(-50%) rotate(calc(var(--rotation) + 7deg)) translateX(5px); }
+		0%, 100% { transform: translateX(0); }
+		25% { transform: translateX(-5px); }
+		75% { transform: translateX(5px); }
 	}
 
-	/* Aircraft and laser styles */
 	.aircraft {
 		position: fixed;
 		left: var(--spacing-lg);
-		top: 50%;
+		transform: translateY(-50%);
 		width: 3rem;
 		height: 3rem;
 		z-index: 50;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: transform 0.3s ease;
-		transform: translateY(-50%) rotate(var(--rotation));
 	}
 
 	.aircraft.shaking {
@@ -651,6 +854,17 @@
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
+		transform: rotate(90deg);
+	}
+
+	.classic-laser {
+		position: fixed;
+		width: 20px;
+		height: 4px;
+		background-color: orange;
+		border-radius: 2px;
+		z-index: 45;
+		pointer-events: none;
 	}
 
 	.laser-wrapper {
@@ -670,21 +884,17 @@
 		object-fit: contain;
 	}
 
-	/* Particle styles */
 	.particle {
 		position: fixed;
 		width: 6px;
 		height: 6px;
-		color: blue;
 		background-color: orange;
-		/*box-shadow: 0 0 1px yellow;*/
 		border-radius: 50%;
 		pointer-events: none;
 		z-index: 45;
-		transform: translate(-50%, -50%); /* Center the particle */
+		transform: translate(-50%, -50%);
 	}
 
-	/* Flying skill styles */
 	.flying-skill {
 		position: fixed;
 		z-index: 100;
@@ -713,11 +923,9 @@
 
 	.shake {
 		--skill-scale: 1.3;
-		animation: shake 0.1s ease-in-out 3;
-		animation-iteration-count: infinite;
+		animation: shake 0.1s ease-in-out infinite;
 	}
 
-	/* Game UI styles */
 	.game-ui {
 		position: fixed;
 		bottom: 0;
@@ -760,7 +968,39 @@
 		color: var(--color-neutral-600);
 	}
 
-	/* Difficulty selection styles */
+	.mode-selector {
+		display: flex;
+		gap: var(--spacing-md);
+		margin: var(--spacing-xl) 0;
+	}
+
+	.mode-button {
+		padding: var(--spacing-md) var(--spacing-xl);
+		font-size: var(--font-size-xl);
+		background: var(--color-neutral-200);
+		color: var(--color-neutral-700);
+		border-radius: var(--radius-lg);
+		font-weight: var(--font-weight-medium);
+		transition: all 0.2s;
+		min-width: 200px;
+	}
+
+	.mode-button:hover {
+		background: var(--color-neutral-300);
+		transform: translateY(-2px);
+	}
+
+	.mode-button.active {
+		background: var(--color-primary-light);
+		color: white;
+	}
+
+	.mode-description {
+		font-size: var(--font-size-lg);
+		color: white;
+		margin: var(--spacing-md) 0;
+	}
+
 	.difficulty-select {
 		position: fixed;
 		inset: 0;
@@ -793,7 +1033,6 @@
 		margin-top: var(--spacing-lg);
 	}
 
-	/* Button styles */
 	.difficulty-button {
 		padding: var(--spacing-md) var(--spacing-xl);
 		font-size: var(--font-size-xl);
@@ -844,7 +1083,6 @@
 		transform: translateY(-2px);
 	}
 
-	/* Game over screen styles */
 	.game-over {
 		position: fixed;
 		inset: 0;
@@ -908,7 +1146,6 @@
 		transform: translateY(-2px);
 	}
 
-	/* Utility styles */
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
@@ -924,6 +1161,7 @@
 		align-items: center;
 		z-index: 50;
 	}
+
 	.audio-settings {
 		display: flex;
 		gap: var(--spacing-xl);
