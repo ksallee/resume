@@ -243,3 +243,8 @@
       background: var(--color-primary-light);
       color: white;
   }
+  .audiowide-regular {
+  font-family: "Audiowide", serif;
+  font-weight: 400;
+  font-style: normal;
+}
