@@ -698,21 +698,6 @@
 						<div class="stat">High Score: {highScore}</div>
 						<div class="stat">Lives: {lives}</div>
 					</div>
-					<div class="controls">
-						<div class="instructions">
-							{#if gameMode === 'typing'}
-								Type the letters to destroy skills!
-							{:else}
-								Use UP/DOWN to move, SPACE to shoot!
-							{/if}
-						</div>
-						<button
-							class="end-game-button"
-							onclick={endGame}
-						>
-							End Game
-						</button>
-					</div>
 				</div>
 			</div>
 		</div>
