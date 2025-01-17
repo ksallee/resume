@@ -694,9 +694,9 @@
 			<div class="container">
 				<div class="game-stats-card">
 					<div class="stats">
-						<div class="stat">Score: {score}</div>
-						<div class="stat">High Score: {highScore}</div>
-						<div class="stat">Lives: {lives}</div>
+						<div class="stat"><span class="audiowide-regular">SCORE:</span> {score}</div>
+						<div class="stat"><span class="audiowide-regular">HIGH SCORE:</span> {highScore}</div>
+						<div class="stat"><span class="audiowide-regular">LIVES:</span> {lives}</div>
 					</div>
 				</div>
 			</div>
