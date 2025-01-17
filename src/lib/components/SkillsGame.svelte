@@ -5,7 +5,7 @@
 	import AudioManager from './AudioManager.svelte';
 
 	const { skills, skillElements } = $props();
-
+	const MAX_LASERS = 3;
 	const SKILL_SCALE_FACTOR = 1.3;
 	const SCORE_VALUES = {
 		easy: 1,
@@ -20,9 +20,9 @@
 			hard: { spawnInterval: 1000, maxSkills: 5, skillSpeed: 0.6 }
 		},
 		classic: {
-			easy: { spawnInterval: 2000, maxSkills: 5, skillSpeed: 0.6 },
-			medium: { spawnInterval: 1500, maxSkills: 8, skillSpeed: 0.8 },
-			hard: { spawnInterval: 500, maxSkills: 10, skillSpeed: 1.0 }
+			easy: { spawnInterval: 1500, maxSkills: 8, skillSpeed: 0.8 },
+			medium: { spawnInterval: 500, maxSkills: 10, skillSpeed: 1.0 },
+			hard: { spawnInterval: 300, maxSkills: 15, skillSpeed: 1.2 }
 		}
 	};
 
@@ -44,7 +44,8 @@
 	let musicEnabled = $state(true);
 	let sfxEnabled = $state(true);
 	let gameMode = $state('classic');
-	let activeLaser = $state(null);
+	let activeLasers = $state([]);
+
 	let innerHeight = $state(0)
 
 	// New state variables for vertical movement
@@ -142,13 +143,13 @@
 	};
 
 	const shootClassicLaser = () => {
-		if (activeLaser) return;
+		if (activeLasers.length >= MAX_LASERS) return;
 
 		soundPlayer?.('laser');
 		const aircraftPos = getElementPosition(aircraft);
 		if (!aircraftPos) return;
 
-		activeLaser = {
+		const newLaser = {
 			x: aircraftPos.x,
 			y: aircraftPos.y,
 			angle: 0, // Always shoot horizontally
@@ -156,58 +157,57 @@
 			id: Date.now()
 		};
 
+		activeLasers = [...activeLasers, newLaser];
+
 		const animateLaser = () => {
-			if (!activeLaser || !gameActive) return;
+			if (!gameActive) return;
 
-			activeLaser = {
-				...activeLaser,
-				x: activeLaser.x + Math.cos(activeLaser.angle) * activeLaser.speed,
-				y: activeLaser.y + Math.sin(activeLaser.angle) * activeLaser.speed
-			};
+			activeLasers = activeLasers.map(laser => ({
+				...laser,
+				x: laser.x + Math.cos(laser.angle) * laser.speed,
+				y: laser.y + Math.sin(laser.angle) * laser.speed
+			})).filter(laser => {
+				// Check for collisions with skills
+				const hitSkills = new Set();
+				activeSkills.forEach(skill => {
+					const skillCenter = {
+						x: skill.currentX + skill.width / 2,
+						y: skill.currentY + skill.height / 2
+					};
 
-			const hitSkills = new Set();
-			activeSkills.forEach(skill => {
-				const skillCenter = {
-					x: skill.currentX + skill.width / 2,
-					y: skill.currentY + skill.height / 2
-				};
+					const distance = Math.hypot(
+						laser.x - skillCenter.x,
+						laser.y - skillCenter.y
+					);
 
-				const distance = Math.hypot(
-					activeLaser.x - skillCenter.x,
-					activeLaser.y - skillCenter.y
-				);
+					if (distance < 30) {
+						hitSkills.add(skill.id);
+						setTimeout(() => {
+							createParticles(skillCenter.x, skillCenter.y);
+							score += SCORE_VALUES[difficulty];
+							if (score > highScore) {
+								highScore = score;
+								localStorage.setItem('skillGameHighScore', highScore.toString());
+							}
+						}, 0);
+					}
+				});
 
-				if (distance < 30) {
-					hitSkills.add(skill.id);
-					setTimeout(() => {
-						createParticles(skillCenter.x, skillCenter.y);
-						score += SCORE_VALUES[difficulty];
-						if (score > highScore) {
-							highScore = score;
-							localStorage.setItem('skillGameHighScore', highScore.toString());
-						}
-					}, 0);
-				}
+				activeSkills = activeSkills.filter(skill => !hitSkills.has(skill.id));
+
+				// Remove laser if it hit something or is off screen
+				const isOffScreen =
+					laser.x < 0 ||
+					laser.x > window.innerWidth ||
+					laser.y < 0 ||
+					laser.y > window.innerHeight;
+
+				return !hitSkills.size && !isOffScreen;
 			});
 
-			if (hitSkills.size > 0) {
-				activeSkills = activeSkills.filter(skill => !hitSkills.has(skill.id));
-				activeLaser = null;
-				return;
+			if (activeLasers.length > 0) {
+				requestAnimationFrame(animateLaser);
 			}
-
-			const isOffScreen =
-				activeLaser.x < 0 ||
-				activeLaser.x > window.innerWidth ||
-				activeLaser.y < 0 ||
-				activeLaser.y > window.innerHeight;
-
-			if (isOffScreen) {
-				activeLaser = null;
-				return;
-			}
-
-			requestAnimationFrame(animateLaser);
 		};
 
 		requestAnimationFrame(animateLaser);
@@ -326,7 +326,7 @@
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
-		activeLaser = null;
+		activeLasers = [];
 		shipTween.set(window.innerHeight / 2);
 		keysPressed.clear();
 		skillSpring.target = 1;
@@ -350,7 +350,7 @@
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
-		activeLaser = null;
+		activeLasers = [];
 		shipTween.set(window.innerHeight / 2);
 		keysPressed.clear();
 		skillSpring.target = 1;
@@ -404,6 +404,7 @@
 					skill.currentY - aircraftPos.y
 				);
 
+				// Check for collision with aircraft
 				if (distanceToAircraft < 30) {
 					lives--;
 					soundPlayer?.('collision');
@@ -418,6 +419,23 @@
 					}
 					return false;
 				}
+
+				// Check if skill has gone off the left side of the screen in classic mode
+				if (gameMode === 'classic' && skill.currentX < -50) {
+					lives--;
+					soundPlayer?.('collision');
+					shipShaking = true;
+					setTimeout(() => {
+						shipShaking = false;
+					}, 500);
+
+					if (lives <= 0) {
+						soundPlayer?.('gameOver');
+						showGameOver();
+					}
+					return false;
+				}
+
 				return true;
 			});
 
@@ -435,7 +453,7 @@
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
-		activeLaser = null;
+		activeLasers = [];
 		shipTween.set(window.innerHeight / 2);
 		keysPressed.clear();
 		skillSpring.target = 1;
@@ -580,17 +598,17 @@
 			<img src="/ship.svg" alt="spaceship" class="ship-icon" />
 		</div>
 
-		<!-- Classic Mode Laser -->
-		{#if activeLaser}
-			<div
-				class="classic-laser"
-				style="
-					left: {activeLaser.x}px;
-					top: {activeLaser.y}px;
-					transform: translate(-50%, -50%);
-				"
-			></div>
-		{/if}
+		<!-- Classic Mode Lasers -->
+		{#each activeLasers as laser (laser.id)}
+        <div
+            class="classic-laser"
+            style="
+                left: {laser.x}px;
+                top: {laser.y}px;
+                transform: translate(-50%, -50%);
+            "
+        ></div>
+    {/each}
 
 		<!-- Typing Mode Lasers -->
 		{#each laserElements as laser (laser.id)}
