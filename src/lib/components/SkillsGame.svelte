@@ -1,9 +1,9 @@
+# Note: This code has been truncated in this example but should never be truncated in practice
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { Spring } from 'svelte/motion';
 	import AudioManager from './AudioManager.svelte';
-
 
 	const { skills, skillElements } = $props();
 
@@ -14,10 +14,18 @@
 		hard: 10
 	};
 
+	// Updated DIFFICULTY_SETTINGS to include both modes
 	const DIFFICULTY_SETTINGS = {
-		easy: { spawnInterval: 3000, maxSkills: 4, skillSpeed: 0.3 },
-		medium: { spawnInterval: 2000, maxSkills: 5, skillSpeed: 0.4 },
-		hard: { spawnInterval: 1000, maxSkills: 5, skillSpeed: 0.6 }
+		typing: {
+			easy: { spawnInterval: 3000, maxSkills: 4, skillSpeed: 0.3 },
+			medium: { spawnInterval: 2000, maxSkills: 5, skillSpeed: 0.4 },
+			hard: { spawnInterval: 1000, maxSkills: 5, skillSpeed: 0.6 }
+		},
+		classic: {
+			easy: { spawnInterval: 3000, maxSkills: 3, skillSpeed: 0.2, rotationSpeed: 3 },
+			medium: { spawnInterval: 2000, maxSkills: 4, skillSpeed: 0.3, rotationSpeed: 4 },
+			hard: { spawnInterval: 1500, maxSkills: 5, skillSpeed: 0.4, rotationSpeed: 5 }
+		}
 	};
 
 	let gameActive = $state(false);
@@ -38,6 +46,8 @@
 	let isGameOver = $state(false);
 	let musicEnabled = $state(true);
 	let sfxEnabled = $state(true);
+	let gameMode = $state('typing'); // New state for game mode
+	let activeLaser = $state(null); // New state for classic mode laser
 
 	let playSound = $state(() => {});
 	let toggleMusic = $state((enabled) => {
@@ -93,11 +103,12 @@
 		soundPlayer?.('explosion');
 		const particleCount = 40;
 		const newParticles = [];
+		const baseId = Math.random(); // Add a random base to make IDs more unique
 		for (let i = 0; i < particleCount; i++) {
 			const angle = (i * 360 / particleCount) * (Math.PI / 180);
-			const randomSpeed = 1 + Math.random() * 4; // Randomized speed
+			const randomSpeed = 1 + Math.random() * 4;
 			newParticles.push({
-				id: Date.now() + i,
+				id: `${baseId}-${i}`, // Create a unique string ID
 				x,
 				y,
 				angle,
@@ -122,6 +133,84 @@
 			}
 		};
 		requestAnimationFrame(animateParticles);
+	};
+
+	// Classic mode shooting function
+	const shootClassicLaser = () => {
+		if (activeLaser) return; // Only one laser at a time
+
+		soundPlayer?.('laser');
+		const aircraftPos = getElementPosition(aircraft);
+		if (!aircraftPos) return;
+
+		const angle = (shipRotation - 90) * (Math.PI / 180); // Convert to radians
+		const speed = 10; // Laser speed
+
+		activeLaser = {
+			x: aircraftPos.x,
+			y: aircraftPos.y,
+			angle,
+			speed,
+			id: Date.now()
+		};
+
+		const animateLaser = () => {
+			if (!activeLaser || !gameActive) return;
+
+			activeLaser = {
+				...activeLaser,
+				x: activeLaser.x + Math.cos(activeLaser.angle) * activeLaser.speed,
+				y: activeLaser.y + Math.sin(activeLaser.angle) * activeLaser.speed
+			};
+
+			// Check for collisions with skills
+			const hitSkills = new Set();
+			activeSkills.forEach(skill => {
+				const skillCenter = {
+					x: skill.currentX + skill.width / 2,
+					y: skill.currentY + skill.height / 2
+				};
+
+				const distance = Math.hypot(
+					activeLaser.x - skillCenter.x,
+					activeLaser.y - skillCenter.y
+				);
+
+				if (distance < 30) { // Collision radius
+					hitSkills.add(skill.id);
+					setTimeout(() => {
+						createParticles(skillCenter.x, skillCenter.y);
+						score += SCORE_VALUES[difficulty];
+						if (score > highScore) {
+							highScore = score;
+							localStorage.setItem('skillGameHighScore', highScore.toString());
+						}
+					}, 0);
+				}
+			});
+
+			if (hitSkills.size > 0) {
+				activeSkills = activeSkills.filter(skill => !hitSkills.has(skill.id));
+				activeLaser = null; // Destroy laser after hitting skills
+				return;
+			}
+
+			// Remove laser if it's off screen
+			const isOffScreen =
+				activeLaser.x < 0 ||
+				activeLaser.x > window.innerWidth ||
+				activeLaser.y < 0 ||
+				activeLaser.y > window.innerHeight;
+
+			if (isOffScreen) {
+				activeLaser = null;
+				return;
+			}
+
+			requestAnimationFrame(animateLaser);
+		};
+
+		requestAnimationFrame(animateLaser);
 	};
 
 	const shootLaser = (skill) => {
@@ -207,9 +296,9 @@
 		if (!aircraftPos) return;
 
 		const angle = calculateAngle(startPos, aircraftPos);
-		const speed = DIFFICULTY_SETTINGS[difficulty].skillSpeed * (0.9 + Math.random() * 0.2);
+		const settings = DIFFICULTY_SETTINGS[gameMode][difficulty];
+		const speed = settings.skillSpeed * (0.9 + Math.random() * 0.2);
 
-		// Start with original size and delay the scale up
 		setTimeout(() => {
 			skillSpring.target = SKILL_SCALE_FACTOR;
 		}, 300);
@@ -238,6 +327,7 @@
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
+		activeLaser = null;
 		shipRotation = 90;
 		skillSpring.target = 1;
 	};
@@ -260,6 +350,7 @@
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
+		activeLaser = null;
 		shipRotation = 90;
 		skillSpring.target = 1;
 
@@ -274,9 +365,10 @@
 			}, 0);
 		}
 
+		const settings = DIFFICULTY_SETTINGS[gameMode][difficulty];
 		setTimeout(() => {
 			gameLoop = setInterval(() => {
-				if (activeSkills.length < DIFFICULTY_SETTINGS[difficulty].maxSkills) {
+				if (activeSkills.length < settings.maxSkills) {
 					const availableSkills = allSkills.filter((skill, index) =>
 						skillElements[index] && !activeSkills.some(active => active.text === skill)
 					);
@@ -287,7 +379,7 @@
 						launchSkill(skill, index);
 					}
 				}
-			}, DIFFICULTY_SETTINGS[difficulty].spawnInterval);
+			}, settings.spawnInterval);
 		}, 100);
 
 		const animate = () => {
@@ -337,11 +429,12 @@
 	const endGame = () => {
 		gameActive = false;
 		isGameOver = false;
-		showDifficultySelect = false;  // Add this line to close difficulty screen
+		showDifficultySelect = false;
 		if (gameLoop) clearInterval(gameLoop);
 		activeSkills = [];
 		laserElements = [];
 		particles = [];
+		activeLaser = null;
 		shipRotation = 90;
 		skillSpring.target = 1;
 		difficulty = null;
@@ -353,7 +446,6 @@
 
 	const resetSkill = (skill) => {
 		soundPlayer?.('wrong');
-		// Don't shake or reset if the skill is fully matched
 		if (skill.matchedChars === skill.normalizedText.length) return;
 
 		skill.matchedChars = 0;
@@ -365,8 +457,23 @@
 		}, 300);
 	};
 
-	const handleKeydown = (event) => {
+	// Handle classic mode controls
+	const handleClassicControls = (event) => {
+		if (!gameActive || gameMode !== 'classic') return;
 
+		const rotationSpeed = DIFFICULTY_SETTINGS.classic[difficulty].rotationSpeed;
+
+		if (event.key === 'ArrowUp') {
+			shipRotation = (shipRotation - rotationSpeed + 360) % 360;
+		} else if (event.key === 'ArrowDown') {
+			shipRotation = (shipRotation + rotationSpeed) % 360;
+		} else if (event.key === ' ') { // Spacebar
+			event.preventDefault();
+			shootClassicLaser();
+		}
+	};
+
+	const handleKeydown = (event) => {
 		if (event.key === 'Escape') {
 			console.log('Escape key pressed');
 			endGame();
@@ -374,22 +481,26 @@
 		}
 		if (!gameActive) return;
 
-		event.preventDefault();
+		if (gameMode === 'classic') {
+			handleClassicControls(event);
+			return;
+		}
 
-		const key = event.key;
-		if (key === 'Shift') return;
+		// Typing mode logic
+		event.preventDefault();
+		if (event.key === 'Shift') return;
 
 		activeSkills = activeSkills.map(skill => {
 			const targetChar = skill.normalizedText[skill.matchedChars];
 
-			if (targetChar === key) {
+			if (targetChar === event.key) {
 				const newMatchedChars = skill.matchedChars + 1;
 				if (newMatchedChars === skill.normalizedText.length) {
 					shootLaser(skill);
 					return { ...skill, matchedChars: newMatchedChars };
 				}
 				return { ...skill, matchedChars: newMatchedChars };
-			} else if (skill.matchedChars > 0 && key !== targetChar) {
+			} else if (skill.matchedChars > 0 && event.key !== targetChar) {
 				resetSkill(skill);
 			}
 			return skill;
@@ -415,12 +526,12 @@
 	onclose={() => gameActive = false}
 >
 	<AudioManager
-  {gameActive}
-  showingMenu={showDifficultySelect}
-  {musicEnabled}
-  {sfxEnabled}
-  on:playSound={(e) => soundPlayer = e.detail}
-/>
+		{gameActive}
+		showingMenu={showDifficultySelect}
+		{musicEnabled}
+		{sfxEnabled}
+		on:playSound={(e) => soundPlayer = e.detail}
+	/>
 
 	{#if gameActive || isGameOver}
 		<!-- Player ship -->
@@ -434,17 +545,29 @@
 			<img src="/ship.svg" alt="spaceship" class="ship-icon" />
 		</div>
 
-		<!-- Lasers -->
+		<!-- Classic Mode Laser -->
+		{#if activeLaser}
+			<div
+				class="classic-laser"
+				style="
+					left: {activeLaser.x}px;
+					top: {activeLaser.y}px;
+					transform: translate(-50%, -50%) rotate({(activeLaser.angle * 180 / Math.PI)}deg);
+				"
+			></div>
+		{/if}
+
+		<!-- Typing Mode Lasers -->
 		{#each laserElements as laser (laser.id)}
 			<div
 				class="laser-wrapper"
 				style="
-          position: fixed;
-          left: {laser.startX - 20 + (laser.endX - laser.startX) * laser.progress}px;
-          top: {laser.startY - 20 + (laser.endY - laser.startY) * laser.progress}px;
-          transform: rotate({(laser.angle * 180 / Math.PI)}deg);
-          z-index: 45;
-        "
+					position: fixed;
+					left: {laser.startX - 20 + (laser.endX - laser.startX) * laser.progress}px;
+					top: {laser.startY - 20 + (laser.endY - laser.startY) * laser.progress}px;
+					transform: rotate({(laser.angle * 180 / Math.PI)}deg);
+					z-index: 45;
+				"
 			>
 				<img
 					src="/laser.svg"
@@ -459,10 +582,10 @@
 			<div
 				class="particle"
 				style="
-          left: {particle.x}px;
-          top: {particle.y}px;
-          opacity: {particle.life};
-        "
+					left: {particle.x}px;
+					top: {particle.y}px;
+					opacity: {particle.life};
+				"
 			></div>
 		{/each}
 
@@ -472,18 +595,22 @@
 				class="flying-skill skill-tag"
 				class:shake={skill.shake}
 				style="
-          left: {skill.currentX}px;
-          top: {skill.currentY}px;
-          transform: scale({skillSpring.current});
-        "
+					left: {skill.currentX}px;
+					top: {skill.currentY}px;
+					transform: scale({skillSpring.current});
+				"
 				in:fade={{duration: 200}}
 				out:fade={{duration: 300}}
 			>
-				{#each skill.normalizedText.split('') as char, i}
-          <span class={i < skill.matchedChars ? 'matched-char' : ''}>
-            {char}
-          </span>
-				{/each}
+				{#if gameMode === 'typing'}
+					{#each skill.normalizedText.split('') as char, i}
+						<span class={i < skill.matchedChars ? 'matched-char' : ''}>
+							{char}
+						</span>
+					{/each}
+				{:else}
+					{skill.text}
+				{/if}
 			</div>
 		{/each}
 
@@ -495,11 +622,11 @@
 				<p class="high-score">High Score: {highScore}</p>
 				<div class="game-over-buttons">
 					<button class="retry-button" onclick={() => {
-            isGameOver = false;
-            difficulty = null;
-            showDifficultySelect = true;
+						isGameOver = false;
+						difficulty = null;
+						showDifficultySelect = true;
 						if (dialog?.close) dialog.close();
-          }}>
+					}}>
 						Play Again
 					</button>
 					<button class="quit-button" onclick={endGame}>
@@ -519,7 +646,13 @@
 						<div class="stat">Lives: {lives}</div>
 					</div>
 					<div class="controls">
-						<div class="instructions">Type the letters to destroy skills!</div>
+						<div class="instructions">
+							{#if gameMode === 'typing'}
+								Type the letters to destroy skills!
+							{:else}
+								Use UP/DOWN to rotate, SPACE to shoot!
+							{/if}
+						</div>
 						<button
 							class="end-game-button"
 							onclick={endGame}
@@ -537,16 +670,32 @@
 {#if showDifficultySelect}
 	<div class="difficulty-select" in:fade>
 		<h1 class="audiowide-regular">SKILL DESTROYER</h1>
-		<p class="difficulty-instructions">
-			Type the letters to destroy the skills before they reach your ship!
+
+		<div class="mode-selector">
+			<button
+				class="mode-button"
+				class:active={gameMode === 'typing'}
+				onclick={() => gameMode = 'typing'}
+			>
+				Typing Mode
+			</button>
+			<button
+				class="mode-button"
+				class:active={gameMode === 'classic'}
+				onclick={() => gameMode = 'classic'}
+			>
+				Classic Mode
+			</button>
+		</div>
+
+		<p class="mode-description">
+			{#if gameMode === 'typing'}
+				Type the letters to destroy the skills before they reach your ship!
+			{:else}
+				Use UP/DOWN arrows to rotate and SPACE to shoot!
+			{/if}
 		</p>
-		<p class="difficulty-instructions">
-			The harder the difficulty, the more points you get.
-			</p>
-		<p class="difficulty-instructions">
-			Watch out, you only have 3 lifes!
-		</p>
-		<h1 class="audiowide-regular">Good luck, pilot!</h1>
+
 		<div class="difficulty-buttons">
 			<button
 				class="difficulty-button"
@@ -572,23 +721,23 @@
 		</div>
 
 		<div class="audio-settings">
-  <label class="audio-option">
-    <input
-      type="checkbox"
-      checked={musicEnabled}
-      onchange={(e) => toggleMusic(e.target.checked)}
-    />
-    <span>Music</span>
-  </label>
-  <label class="audio-option">
-    <input
-      type="checkbox"
-      checked={sfxEnabled}
-      onchange={(e) => toggleSFX(e.target.checked)}
-    />
-    <span>Sound Effects</span>
-  </label>
-</div>
+			<label class="audio-option">
+				<input
+					type="checkbox"
+					checked={musicEnabled}
+					onchange={(e) => toggleMusic(e.target.checked)}
+				/>
+				<span>Music</span>
+			</label>
+			<label class="audio-option">
+				<input
+					type="checkbox"
+					checked={sfxEnabled}
+					onchange={(e) => toggleSFX(e.target.checked)}
+				/>
+				<span>Sound Effects</span>
+			</label>
+		</div>
 	</div>
 {/if}
 
@@ -604,7 +753,6 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <style>
-	/* Dialog styles */
 	.game-dialog {
 		position: fixed;
 		inset: 0;
@@ -628,7 +776,6 @@
 		75% { transform: translateY(-50%) rotate(calc(var(--rotation) + 7deg)) translateX(5px); }
 	}
 
-	/* Aircraft and laser styles */
 	.aircraft {
 		position: fixed;
 		left: var(--spacing-lg);
@@ -653,6 +800,17 @@
 		object-fit: contain;
 	}
 
+	.classic-laser {
+		position: fixed;
+		width: 20px;
+		height: 4px;
+		background-color: orange;
+		border-radius: 2px;
+		transform-origin: center;
+		z-index: 45;
+		pointer-events: none;
+	}
+
 	.laser-wrapper {
 		width: 40px;
 		height: 40px;
@@ -670,21 +828,17 @@
 		object-fit: contain;
 	}
 
-	/* Particle styles */
 	.particle {
 		position: fixed;
 		width: 6px;
 		height: 6px;
-		color: blue;
 		background-color: orange;
-		/*box-shadow: 0 0 1px yellow;*/
 		border-radius: 50%;
 		pointer-events: none;
 		z-index: 45;
-		transform: translate(-50%, -50%); /* Center the particle */
+		transform: translate(-50%, -50%);
 	}
 
-	/* Flying skill styles */
 	.flying-skill {
 		position: fixed;
 		z-index: 100;
@@ -713,11 +867,9 @@
 
 	.shake {
 		--skill-scale: 1.3;
-		animation: shake 0.1s ease-in-out 3;
-		animation-iteration-count: infinite;
+		animation: shake 0.1s ease-in-out infinite;
 	}
 
-	/* Game UI styles */
 	.game-ui {
 		position: fixed;
 		bottom: 0;
@@ -760,7 +912,39 @@
 		color: var(--color-neutral-600);
 	}
 
-	/* Difficulty selection styles */
+	.mode-selector {
+		display: flex;
+		gap: var(--spacing-md);
+		margin: var(--spacing-xl) 0;
+	}
+
+	.mode-button {
+		padding: var(--spacing-md) var(--spacing-xl);
+		font-size: var(--font-size-xl);
+		background: var(--color-neutral-200);
+		color: var(--color-neutral-700);
+		border-radius: var(--radius-lg);
+		font-weight: var(--font-weight-medium);
+		transition: all 0.2s;
+		min-width: 200px;
+	}
+
+	.mode-button:hover {
+		background: var(--color-neutral-300);
+		transform: translateY(-2px);
+	}
+
+	.mode-button.active {
+		background: var(--color-primary-light);
+		color: white;
+	}
+
+	.mode-description {
+		font-size: var(--font-size-lg);
+		color: white;
+		margin: var(--spacing-md) 0;
+	}
+
 	.difficulty-select {
 		position: fixed;
 		inset: 0;
@@ -793,7 +977,6 @@
 		margin-top: var(--spacing-lg);
 	}
 
-	/* Button styles */
 	.difficulty-button {
 		padding: var(--spacing-md) var(--spacing-xl);
 		font-size: var(--font-size-xl);
@@ -844,7 +1027,6 @@
 		transform: translateY(-2px);
 	}
 
-	/* Game over screen styles */
 	.game-over {
 		position: fixed;
 		inset: 0;
@@ -908,7 +1090,6 @@
 		transform: translateY(-2px);
 	}
 
-	/* Utility styles */
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
@@ -924,6 +1105,7 @@
 		align-items: center;
 		z-index: 50;
 	}
+
 	.audio-settings {
 		display: flex;
 		gap: var(--spacing-xl);
