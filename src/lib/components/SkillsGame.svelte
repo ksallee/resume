@@ -670,20 +670,20 @@
 		<!-- Game Over screen -->
 		{#if isGameOver}
 			<div class="game-over" in:fade>
-				<h1>Game Over!</h1>
-				<p class="final-score">Final Score: {score}</p>
-				<p class="high-score">High Score: {highScore}</p>
+				<h1 class="audiowide-regular">GAME OVER</h1>
+				<p class="final-score"><span class="audiowide-regular">FINAL SCORE:</span> {score}</p>
+				<p class="high-score"><span class="audiowide-regular">HIGH SCORE:</span> {highScore}</p>
 				<div class="game-over-buttons">
-					<button class="retry-button" onclick={() => {
+					<button class="retry-button audiowide-regular" onclick={() => {
 						isGameOver = false;
 						difficulty = null;
 						showDifficultySelect = true;
 						if (dialog?.close) dialog.close();
 					}}>
-						Play Again
+						PLAY AGAIN
 					</button>
-					<button class="quit-button" onclick={endGame}>
-						Quit
+					<button class="quit-button audiowide-regular" onclick={endGame}>
+						QUIT
 					</button>
 				</div>
 			</div>
@@ -737,25 +737,25 @@
 
 		<div class="difficulty-buttons">
 			<button
-				class="difficulty-button"
+				class="difficulty-button audiowide-regular"
 				class:active={difficulty === 'easy'}
 				onclick={() => setDifficulty('easy')}
 			>
-				Easy
+				EASY
 			</button>
 			<button
-				class="difficulty-button"
+				class="difficulty-button audiowide-regular"
 				class:active={difficulty === 'medium'}
 				onclick={() => setDifficulty('medium')}
 			>
-				Medium
+				MEDIUM
 			</button>
 			<button
-				class="difficulty-button"
+				class="difficulty-button audiowide-regular"
 				class:active={difficulty === 'hard'}
 				onclick={() => setDifficulty('hard')}
 			>
-				Hard
+				HARD
 			</button>
 		</div>
 
@@ -1081,7 +1081,7 @@
 	}
 
 	.game-over h1 {
-		font-size: var(--font-size-4xl);
+		/*font-size: var(--font-size-4xl);*/
 		margin-bottom: var(--spacing-lg);
 	}
 
