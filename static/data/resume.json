@@ -1,10 +1,10 @@
 {
   "name": "Kevin Sallée",
-  "title": "Senior Software Engineer",
+  "title": "Senior Software Engineer<br>Tech Lead",
   "location": "Mexico / Remote",
   "email": "kevin.sallee@gmail.com",
   "linkedin": "https://www.linkedin.com/in/kevinsallee/",
-  "summary": "Senior Software Engineer with 18 years of comprehensive experience specializing in full-stack development and pipeline architecture. Expert in Python development with proven success in building complex systems across multiple domains.<br><br>\n\nLed VFX pipeline development at major studios, scaling teams from 5 to 18 developers and architecting high-performance solutions. Extensive experience in studio pipeline development, including work at Cinesite, Rodeo FX, and Animal Logic.<br><br>\n\nTechnical expertise spans modern web technologies (FastAPI, Django, React, Svelte), DevOps practices (Docker, CI/CD, AWS), and UI development (Qt, Flutter). Strong background in cross-platform application development, real-time 3D graphics pipelines, and enterprise-grade database architecture.<br><br>\n\nCurrently focusing on Python for enterprise solutions while driving innovation with Svelte for modern web applications, with recent projects including offline-first PWAs and real-time monitoring systems.",
+  "summary": "Senior Software Engineer with 18 years of comprehensive experience specializing in full-stack development and pipeline architecture. Expert in Python development with proven success in building complex systems across multiple domains.<br><br>\n\nLed VFX pipeline development at major studios, scaling teams from 5 to 18 developers and architecting high-performance solutions. Extensive experience in studio pipeline development, including work at Cinesite, Rodeo FX, and Animal Logic.<br><br>\n\nTechnical expertise spans modern web technologies (FastAPI, Django, React, Svelte), DevOps practices (Docker, CI/CD, AWS), and UI development (Qt, Flutter). Strong background in cross-platform application development, real-time 3D graphics pipelines, and enterprise-grade database architecture.<br><br>Currently focusing on AI Integrations, Python for enterprise solutions and Svelte for modern web applications, with recent projects including offline-first PWAs and real-time monitoring systems.",
   "picture": "/me.jpg",
   "skills": {
     "programming": [
