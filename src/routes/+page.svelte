@@ -38,7 +38,10 @@
       <h2>{@html profile.title}</h2>
       <p>{profile.location}</p>
       <p><a href="mailto:{profile.email}">{profile.email}</a></p>
-      <p><a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+      <p>
+				<a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+				<a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+			</p>
     </div>
 		<div class="skills-game-desktop">
     <SkillsGame
