@@ -374,4 +374,9 @@
 			display: none;
 		}
 	}
+	@media print {
+		.skills-game-desktop {
+			display: none;
+		}
+	}
 </style>
