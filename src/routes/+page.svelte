@@ -75,7 +75,7 @@
               {/if}
             </div>
             {#if job.description}
-              <p class="experience-description">{job.description}</p>
+              <p class="experience-description">{@html job.description}</p>
             {/if}
             {#if job.skills}
               <div class="skills-list">
