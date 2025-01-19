@@ -93,7 +93,10 @@
 
       <!-- Projects -->
       <section>
-        <h3 class="section-title">Personal Projects</h3>
+        <h3 class="section-title">Personal Projects / Volunteering </h3>
+				<div class="projects-reason">
+					{@html profile.projects_reason}
+				</div>
         {#each profile.projects as project}
           <div class="project-item">
             <div class="project-header">

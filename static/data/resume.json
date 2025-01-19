@@ -5,7 +5,7 @@
   "email": "kevin.sallee@gmail.com",
   "linkedin": "https://www.linkedin.com/in/kevinsallee/",
   "github": "https://www.github.com/ksallee",
-  "summary": "Senior Software Engineer with 18 years of comprehensive experience specializing in full-stack development and pipeline architecture. Expert in Python development with proven success in building complex systems across multiple domains. Provided Software Engineering consulting services to world-class Media & Entertainment companies.<br><br>\n\nLed VFX pipeline development at major studios, scaling teams from 5 to 18 developers and architecting high-performance solutions. Extensive experience in studio pipeline development, including work at Cinesite, Rodeo FX, and Animal Logic.<br><br>\n\nTechnical expertise spans modern web technologies (FastAPI, Django, React, Svelte), DevOps practices (Docker, CI/CD, AWS), and UI development (Qt, Flutter). Strong background in cross-platform application development, real-time 3D graphics pipelines, and enterprise-grade database architecture.<br><br>Currently focusing on AI Integrations, Python for enterprise solutions and Svelte for modern web applications, with recent projects including offline-first PWAs and real-time monitoring systems.",
+  "summary": "Senior Software Engineer with 18 years experience in software architecture and development. Now focused on <b>AI integration, modern web applications, and enterprise-scale Python solutions</b>.<br><br><b>Looking to drive innovation in AI-powered software solutions</b>, combining VFX pipeline expertise with cutting-edge AI technologies.<br><br>Previously managed and scaled teams at major studios including Prime Focus and Rodeo FX.",
   "picture": "/me.jpg",
   "skills": {
     "programming": [
@@ -19,14 +19,11 @@
     "frameworks": [
       "Svelte",
       "React",
-      "Redux",
       "FastAPI",
       "Django",
       "Qt",
       "PyQt/PySide",
-      "Flutter",
-      "Svelte Native",
-      "NativeScript"
+      "Flutter"
     ],
     "devops": [
       "Docker",
@@ -53,31 +50,26 @@
       "Hiero",
       "Arnold",
       "Computer Graphics",
-      "Computer Animation",
       "3D",
       "Shading",
-      "Shaders",
-      "Compositing",
-      "Visual Effects"
+      "Compositing"
     ],
     "methodologies": [
       "Agile Methodologies",
       "Test-Driven Development",
       "Software Architecture",
-      "Software Design",
       "Problem Solving",
       "Team Leadership",
       "Pipeline Development",
-      "R&D",
-      "Documentation"
+      "R&D"
     ]
   },
   "experience": [
     {
       "company": "GPL Technologies",
       "title": "Senior Software Engineer",
-      "period": "Apr 2019 - Present",
-      "duration": "5 yrs 10 mos",
+      "period": "2019 - Present",
+      "duration": "6 years",
       "location": "Remote",
       "skills": [
         "python",
@@ -86,194 +78,84 @@
         "PyQt/PySide",
         "Javascript",
         "TypeScript",
-        "excelsript",
-        "ES6",
         "PostgreSQL",
         "MongoDB",
-        "Swift",
         "Software Architecture",
-        "Test Driven Development",
-        "Agile Methodologies",
-        "Troubleshooting",
-        "Documentation",
-        "Software Design",
-        "CSS",
-        "Maya",
-        "Nuke",
-        "Photoshop"
+        "Test Driven Development"
       ],
-      "description": "• Led the development of mission-critical software solutions for leading Media & Entertainment companies, implementing robust architectures.<br>• Specialized in building scalable applications and solutions, automating workflows, and providing high-quality apps to world-leading VFX and game companies."
+      "description": "• Led development of mission-critical software solutions for leading Media & Entertainment companies<br>• Built scalable applications and automated workflows for world-leading VFX and game companies"
     },
     {
-      "company": "One Drop",
-      "title": "Senior Contract Specialist",
-      "period": "Jun 2020 - Jun 2021",
-      "duration": "1 yr 1 mo",
-      "location": "Remote",
-      "contract": true,
-      "skills": [
-        "Troubleshooting",
-        "Software Architecture",
-        "Documentation",
-        "Software Design"
-      ],
-      "description": "Provided specialized software architecture consulting, focusing on system optimization and technical documentation. Delivered strategic solutions for complex software challenges while ensuring adherence to best practices and design principles."
-    },
-    {
-      "company": "Sano Intelligence",
-      "title": "Software Engineer",
-      "period": "Mar 2018 - Oct 2018",
-      "location": "Hybrid San Francisco / Remote",
-      "duration": "8 mos",
-      "description": "Developed sophisticated GUI applications for multi-microcontroller system management, implementing comprehensive device control interfaces for motors and temperature sensors. Leveraged Test-Driven Development methodology while utilizing Python, PyQt, AWS, and MySQL to create robust, scalable solutions.",
-      "skills": [
-        "Python",
-        "PyQt",
-        "Git",
-        "Jenkins",
-        "AWS",
-        "MySQL",
-        "SQLAlchemy",
-        "TDD"
-      ]
-    },
-    {
-      "company": "Cinesite",
-      "title": "Lead R&D Developer",
-      "period": "Sep 2017 - Mar 2018",
-      "duration": "7 mos",
-      "location": "Montreal, Canada",
-      "description": "Spearheaded the enhancement and maintenance of proprietary software services within a high-performance VFX environment. Led initiatives to optimize codebase efficiency and modernize build systems utilizing Python, PySide, and Docker. Integrated cutting-edge solutions across Maya, Nuke, and Arnold platforms.",
+      "company": "Major Studios (Cinesite, Rodeo FX, Animal Logic, Prime Focus)",
+      "title": "Software Engineer / Pipeline Developer",
+      "period": "2013 - 2019",
+      "duration": "6 years",
+      "location": "Global",
       "skills": [
         "Python",
         "PySide",
         "Docker",
-        "Fabric",
-        "Elastic",
         "Maya",
         "Nuke",
-        "Arnold"
-      ]
-    },
-    {
-      "company": "Rodeo FX",
-      "title": "Head of Pipeline",
-      "period": "Nov 2016 - Jul 2017",
-      "duration": "9 mos",
-      "location": "Montreal, Canada",
-      "description": "Advanced from Senior Developer to Head of Pipeline, leading a team of developers while driving innovation in production workflows. Architected Autodesk Flow Production Tracking integration with Kibana, implementing event handling systems and developing a nodal execution framework. Managed cross-functional teams using agile methodologies while overseeing technical decision-making across Maya, Nuke, and Katana platforms.",
-      "skills": [
-        "Python",
-        "Autodesk Flow Production Tracking",
         "Pipeline Development",
-        "Team Leadership",
-        "Redis",
-        "Maya",
-        "Nuke",
-        "Katana"
-      ]
-    },
-    {
-      "company": "Animal Logic",
-      "title": "Senior Pipeline Developer",
-      "period": "Mar 2015 - Feb 2016",
-      "duration": "1 yr",
-      "location": "Sydney, Australia",
-      "description": "Engineered advanced pipeline solutions for a premier animation studio, developing PySide tools for procedural systems and implementing USD integration within Maya. Created innovative layer-based control systems for execution graphs while maintaining and enhancing core pipeline functionality.",
-      "skills": [
-        "Python",
-        "PySide",
-        "PyQt",
-        "Maya",
-        "Nuke",
-        "USD"
-      ]
-    },
-    {
-      "company": "Pipangaï",
-      "title": "Senior Pipeline Engineer",
-      "period": "May 2014 - Mar 2015",
-      "duration": "11 mos",
-      "location": "Le Port, Reunion Island",
-      "description": "Architected and maintained the complete pipeline infrastructure for the feature film Adama using Autodesk Flow Production Tracking Pipeline Toolkit. Developed comprehensive publishing and scene creation tools, streamlining workflow efficiency across all departments.",
-      "skills": [
-        "Autodesk Flow Production Tracking",
-        "Pipeline Development",
-        "Python",
-        "PySide"
-      ]
-    },
-    {
-      "company": "Prime Focus",
-      "title": "Head of VFX Pipeline",
-      "period": "Jan 2013 - Apr 2014",
-      "duration": "1 yr 4 mos",
-      "location": "Mumbai, India",
-      "description": "Led and scaled the Mumbai pipeline development team from 5 to 18 members within 12 months, transforming a support-focused group into an innovative development team. Established robust development practices and resolved critical technical challenges using Python, C++, and distributed systems. Implemented solutions utilizing RabbitMQ, Autodesk Flow Production Tracking, and CouchDB while managing team growth and technical direction.",
-      "skills": [
-        "Team Management",
-        "Team Building",
-        "Problem Solving",
-        "Python",
-        "PySide",
-        "C++",
-        "RabbitMQ",
-        "Autodesk Flow Production Tracking",
-        "CouchDB"
-      ]
+        "Team Leadership"
+      ],
+      "description": "• Led VFX pipeline development across major international studios<br>• Scaled and managed development teams from 5 to 18 members<br>• Implemented enterprise-grade pipeline systems using Python and modern web technologies"
     }
   ],
   "education": [
     {
-      "school": "ENSIIE - École Nationale Supérieure d'Informatique pour l'Industrie et l'Entreprise",
-      "degree": "Master of Science - MS, Computer Science",
+      "school": "ENSIIE",
+      "degree": "MSc. Computer Science",
       "period": "2003 - 2006",
-      "description": "Computer engineering school. Programming languages, networks, finance, mathematics for computing, assembly languages, object oriented languages, etc. Focus on programming theory, mathematics, and CGI."
+      "description": "Advanced study in computer science fundamentals, focusing on programming theory, mathematics for computing, and computer graphics. Specialized in software architecture and distributed systems."
     },
     {
       "school": "CREAPOLE",
-      "degree": "Computer Graphics",
+      "degree": "Computer Graphics Engineering",
       "period": "2006 - 2007",
-      "description": "Learned 3D modeling, texturing & shading, animation, lighting, rendering. Fine arts, drawing, storyboard, etc."
+      "description": "Specialized training in computer graphics pipeline development, covering 3D modeling, shading systems, and rendering technologies."
     },
     {
-      "school": "Lycée privé Sainte Geneviève",
+      "school": "Lycée Sainte Geneviève",
+      "degree": "Mathematics & Physics Foundation",
       "period": "2001 - 2003",
-      "description": "University-level preparation for the nation-wide competitive entrance exams of the French 'Grandes Ecoles'. Highly focused on mathematics (25+ hours a week) and physics (10+ hours a week)"
+      "description": "Intensive preparation in advanced mathematics and physics, providing strong analytical foundation for computer science."
     }
   ],
   "languages": [
     {
       "name": "English",
-      "level": "Full professional proficiency"
+      "level": "Native"
     },
     {
       "name": "French",
-      "level": "Native or bilingual proficiency"
+      "level": "Native"
     },
     {
       "name": "Spanish",
-      "level": "Native or bilingual proficiency"
+      "level": "Native"
     }
   ],
   "projects": [
     {
       "title": "Alerta Abejas",
       "url": "https://alerta-abejas.web.app/",
-      "description": "Progressive Web App for tracking and reporting bee-related incidents. Built with offline-first architecture and mobile-responsive design. Features geolocation integration and real-time data synchronization.",
+      "description": "Volunteered, designed and developed for a research NGO (Conahcyt) a web app to protect local bee populations and improve community safety. Progressive Web App for tracking and reporting bee-related incidents, built with offline-first architecture.",
       "tech": ["PWA", "Firebase", "Offline-First", "Geolocation API", "Svelte"]
     },
     {
       "title": "Green Wave Report",
       "url": "https://greenwavereport.netlify.app/",
-      "description": "Real-time monitoring dashboard for the Green Wave surf feature in Bend, OR. Integrates multiple data sources to display live stream, CFS measurements, and temperature analytics.",
+      "description": "Real-time monitoring dashboard for the Green Wave surf feature in Bend, OR. A must have resource for Bend river surfers!",
       "tech": ["Svelte", "Real-time Data", "Data Visualization", "API Integration"]
     },
     {
       "title": "Midjourney Prompt Generator",
       "url": "https://midjourney-prompt-generator.netlify.app/",
-      "description": "AI-powered tool leveraging ChatGPT 3.5 to generate contextual Midjourney prompts. Features multiple professional personas for varied creative approaches.",
+      "description": "Democratizing access to AI art creation. AI-powered tool leveraging ChatGPT to generate contextual Midjourney prompts with multiple creative approaches.",
       "tech": ["ChatGPT API", "Svelte", "AI Integration"]
     }
-  ]
+  ],
+  "projects_reason": "<b>I love building software that makes a difference. I'm passionate about AI and modern web development</b>, and I'm always looking for new ways to combine these technologies to create innovative solutions. I'm particularly interested in projects that leverage AI to solve real-world problems, and I'm excited to work with teams that share my passion for cutting-edge technology."
 }
