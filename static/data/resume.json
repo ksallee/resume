@@ -25,6 +25,15 @@
       "Flutter",
       "Swift"
     ],
+    "AI": [
+      "OpenAI API",
+      "Function Calling",
+      "Structured outputs",
+      "OpenAI Assistants",
+      "Agentic Frameworks",
+      "LangChain",
+      "Anthropic MCP"
+    ],
     "devops": [
       "Docker",
       "CI/CD",
