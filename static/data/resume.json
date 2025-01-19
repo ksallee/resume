@@ -10,32 +10,37 @@
   "skills": {
     "programming": [
       "Python",
-      "C++",
       "JavaScript",
+      "TypeScript",
+      "C++",
       "HTML5",
-      "CSS",
-      "MEL"
+      "CSS"
     ],
     "frameworks": [
       "Svelte",
       "React",
-      "FastAPI",
       "Django",
-      "Qt",
+      "FastAPI",
       "PyQt/PySide",
-      "Flutter"
+      "Flutter",
+      "Swift"
     ],
     "devops": [
       "Docker",
       "CI/CD",
       "AWS",
-      "Jenkins"
+      "Jenkins",
+      "Azure Pipelines",
+      "Github Actions"
     ],
     "databases": [
       "PostgreSQL",
       "MongoDB",
       "MySQL",
-      "SQLAlchemy"
+      "SQLAlchemy",
+      "Redis",
+      "Firebase",
+      "Elasticsearch"
     ],
     "gamedev": [
       "Defold",
@@ -45,22 +50,19 @@
       "Maya",
       "Nuke",
       "RV",
+      "Photoshop",
       "Autodesk Flow Production Tracking",
-      "Tank",
-      "Hiero",
-      "Arnold",
-      "Computer Graphics",
-      "3D",
-      "Shading",
-      "Compositing"
+      "Ftrack",
+      "ffmpeg",
+      "OpenTimelineIO"
     ],
     "methodologies": [
-      "Agile Methodologies",
-      "Test-Driven Development",
+      "Team Leadership",
       "Software Architecture",
       "Problem Solving",
-      "Team Leadership",
-      "Pipeline Development",
+      "Agile Methodologies",
+      "Test-Driven Development",
+      "VFX Pipeline Development",
       "R&D"
     ]
   },
