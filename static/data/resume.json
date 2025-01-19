@@ -32,7 +32,8 @@
       "OpenAI Assistants",
       "Agentic Frameworks",
       "LangChain",
-      "Anthropic MCP"
+      "Anthropic MCP",
+      "Vector Databases"
     ],
     "devops": [
       "Docker",
@@ -71,6 +72,7 @@
       "Problem Solving",
       "Agile Methodologies",
       "Test-Driven Development",
+      "Team Mentorship",
       "VFX Pipeline Development",
       "R&D"
     ]
