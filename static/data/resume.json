@@ -86,10 +86,10 @@
       "description": "• Led development of mission-critical software solutions for leading Media & Entertainment companies<br>• Built scalable applications and automated workflows for world-leading VFX and game companies"
     },
     {
-      "company": "Major Studios (Cinesite, Rodeo FX, Animal Logic, Prime Focus)",
+      "company": "Major Studios (Cinesite, Rodeo FX, Animal Logic, Prime Focus, etc)",
       "title": "Software Engineer / Pipeline Developer",
-      "period": "2013 - 2019",
-      "duration": "6 years",
+      "period": "2008 - 2019",
+      "duration": "11 years",
       "location": "Global",
       "skills": [
         "Python",
@@ -141,13 +141,13 @@
     {
       "title": "Alerta Abejas",
       "url": "https://alerta-abejas.web.app/",
-      "description": "Volunteered, designed and developed for a research NGO (Conahcyt) a web app to protect local bee populations and improve community safety. Progressive Web App for tracking and reporting bee-related incidents, built with offline-first architecture.",
+      "description": "Volunteered with Conahcyt (research NGO) to develop a web app protecting local bee populations. Progressive Web App for incident tracking, built with offline-first architecture.",
       "tech": ["PWA", "Firebase", "Offline-First", "Geolocation API", "Svelte"]
     },
     {
       "title": "Green Wave Report",
       "url": "https://greenwavereport.netlify.app/",
-      "description": "Real-time monitoring dashboard for the Green Wave surf feature in Bend, OR. A must have resource for Bend river surfers!",
+      "description": "Real-time monitoring dashboard for Bend's river surfing community. Integrates multiple data sources to provide essential wave conditions and environmental metrics.",
       "tech": ["Svelte", "Real-time Data", "Data Visualization", "API Integration"]
     },
     {
