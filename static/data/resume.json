@@ -71,18 +71,6 @@
       "period": "2019 - Present",
       "duration": "6 years",
       "location": "Remote",
-      "skills": [
-        "python",
-        "Django",
-        "Autodesk Flow Production Tracking",
-        "PyQt/PySide",
-        "Javascript",
-        "TypeScript",
-        "PostgreSQL",
-        "MongoDB",
-        "Software Architecture",
-        "Test Driven Development"
-      ],
       "description": "• Led development of mission-critical software solutions for leading Media & Entertainment companies<br>• Built scalable applications and automated workflows for world-leading VFX and game companies"
     },
     {
@@ -91,16 +79,7 @@
       "period": "2008 - 2019",
       "duration": "11 years",
       "location": "Global",
-      "skills": [
-        "Python",
-        "PySide",
-        "Docker",
-        "Maya",
-        "Nuke",
-        "Pipeline Development",
-        "Team Leadership"
-      ],
-      "description": "• Head of VFX Pipeline at Prime Focus and Rodeo FX<br>• Scaled and led engineering teams<br>• Architected enterprise-grade pipeline systems using Python and modern web technologies"
+      "description": "• Head of VFX Pipeline at Prime Focus and Rodeo FX<br>• Scaled and led engineering teams across the globe<br>• Architected enterprise-grade VFX pipeline systems"
     }
   ],
   "education": [
@@ -126,7 +105,7 @@
   "languages": [
     {
       "name": "English",
-      "level": "Native"
+      "level": "Expert"
     },
     {
       "name": "French",
