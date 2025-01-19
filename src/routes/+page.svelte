@@ -5,7 +5,7 @@
 	let sortedCategories = $derived([
 		'programming',
 		'frameworks',
-		'AI',
+		'Artificial Intelligence',
 		'devops',
 		'databases',
 		'vfx',
