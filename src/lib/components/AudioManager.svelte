@@ -41,7 +41,10 @@
       laser: '/laser_shooting.mp3',
       collision: '/ship_collision.mp3',
       wrong: '/wrong_answer.mp3',
-      gameOver: '/game_over.mp3'
+      gameOver: '/game_over.mp3',
+      skillCaught: '/skill_caught.mp3',
+      powerUp: '/power_up.mp3',
+      powerDown: '/power_down.mp3'
     };
 
     try {

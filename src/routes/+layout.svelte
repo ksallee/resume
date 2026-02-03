@@ -8,12 +8,12 @@
     title: "Kevin Sallee - Resume",
     description: "Explore Kevin Sallee's professional resume, showcasing skills, experience, projects, and more.",
     keywords: "Kevin Sallee, Resume, Software Developer, Projects, Experience, Skills, Portfolio",
-    canonical: "https://kevinsallee.netlify.app/",
-    url: "https://kevinsallee.netlify.app/",
+    canonical: "https://kevinsallee.vercel.app/",
+    url: "https://kevinsallee.vercel.app/",
     type: "website",
     images: [
       {
-        url: "https://kevinsallee.netlify.app/me.jpg",
+        url: "https://kevinsallee.vercel.app/me.jpg",
         width: 928,
         height: 1232,
         alt: "Kevin Sallee Profile Picture"

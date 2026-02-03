@@ -12,16 +12,6 @@
 		'gamedev',
 		'methodologies'
 	]);
-
-	const getAllSkills = () => {
-		const allSkills = [];
-		for (const category of sortedCategories) {
-			allSkills.push(...profile.skills[category]);
-		}
-		return allSkills;
-	};
-
-	let skillRefs = getAllSkills().map(() => null);
 </script>
 
 <svelte:head>
@@ -45,10 +35,7 @@
 			</p>
 		</div>
 		<div class="skills-game-desktop">
-			<SkillsGame
-				skills={profile.skills}
-				skillElements={skillRefs}
-			/>
+			<SkillsGame skills={profile.skills} />
 		</div>
 	</header>
 
@@ -66,7 +53,7 @@
 				{#each profile.experience as job}
 					<div class="experience-item">
 						<h4 class="experience-title">{job.title}</h4>
-						<a href="#" class="company-link">{job.company}</a>
+						<span class="company-name">{job.company}</span>
 						<div class="experience-meta">
 							<span><b>{job.period}</b></span>
 							{#if job.duration}
@@ -99,11 +86,8 @@
 					<div class="skill-section">
 						<h4 class="skill-category">{category}</h4>
 						<div class="skills-list">
-							{#each profile.skills[category] as skill, index}
-                <span
-									class="skill-tag"
-									bind:this={skillRefs[getAllSkills().indexOf(skill)]}
-								>{skill}</span>
+							{#each profile.skills[category] as skill}
+								<span class="skill-tag">{skill}</span>
 							{/each}
 						</div>
 					</div>
@@ -158,11 +142,8 @@
 					<div class="skill-section">
 						<h4 class="skill-category">{category}</h4>
 						<div class="skills-list">
-							{#each profile.skills[category] as skill, index}
-                <span
-									class="skill-tag"
-									bind:this={skillRefs[getAllSkills().indexOf(skill)]}
-								>{skill}</span>
+							{#each profile.skills[category] as skill}
+								<span class="skill-tag">{skill}</span>
 							{/each}
 						</div>
 					</div>
@@ -343,9 +324,8 @@
 		color: var(--color-neutral-900);
 	}
 
-	.company-link {
+	.company-name {
 		color: var(--color-primary);
-		text-decoration: none;
 		font-weight: var(--font-weight-medium);
 		font-size: var(--font-size-base);
 	}

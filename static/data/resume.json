@@ -1,11 +1,11 @@
 {
   "name": "Kevin Sallée",
-  "title": "Senior Software Engineer<br>Tech Lead",
-  "location": "Mexico / Remote",
+  "title": "Product Manager | Senior Software Engineer",
+  "location": "Valle de Bravo, México / Remote",
   "email": "kevin.sallee@gmail.com",
   "linkedin": "https://www.linkedin.com/in/kevinsallee/",
   "github": "https://www.github.com/ksallee",
-  "summary": "Senior Software Engineer / Manager with 18 years experience in team leadership, software architecture and development. Now focused on <b>AI integration, modern web applications, and enterprise-scale Python solutions</b>.<br><br><b>Looking to drive innovation in AI-powered software solutions</b>, combining VFX pipeline expertise with cutting-edge AI technologies.<br><br>Previously managed and scaled engineering teams at major studios including Prime Focus and Rodeo FX.",
+  "summary": "Product Manager / Senior Software Engineer with 19 years experience in team leadership, software architecture and development. Now focused on <b>AI integration, product strategy, and enterprise-scale solutions</b>.<br><br><b>Looking to drive innovation in AI-powered software solutions</b>, combining VFX pipeline expertise with cutting-edge AI technologies.<br><br>Previously managed and scaled engineering teams at major studios including Prime Focus and Rodeo FX.",
   "picture": "/me.jpg",
   "skills": {
     "programming": [
@@ -67,6 +67,7 @@
       "OpenTimelineIO"
     ],
     "methodologies": [
+      "Product Management",
       "Team Leadership",
       "Software Architecture",
       "Problem Solving",
@@ -78,6 +79,14 @@
     ]
   },
   "experience": [
+    {
+      "company": "Autodesk",
+      "title": "Product Manager - Flow Asset Management",
+      "period": "Mar 2025 - Present",
+      "duration": "Contract",
+      "location": "Valle de Bravo, México / Remote",
+      "description": "• Leading product strategy for Flow Asset Management<br>• Driving roadmap and feature prioritization for enterprise-scale asset management solutions in Media & Entertainment"
+    },
     {
       "company": "GPL Technologies",
       "title": "Senior Software Engineer",
@@ -130,6 +139,12 @@
     }
   ],
   "projects": [
+    {
+      "title": "FlowPilot",
+      "url": "https://www.flowpilot.studio/",
+      "description": "AI-powered tools for Flow Production Tracking. Lets studios build dashboards, automations, and live data exports using natural language instead of Python scripts. Launched January 2026.",
+      "tech": ["AI/LLM", "Flow Production Tracking", "Svelte", "Natural Language Processing", "Real-time Data"]
+    },
     {
       "title": "Alerta Abejas",
       "url": "https://alerta-abejas.web.app/",
