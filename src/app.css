@@ -1,6 +1,6 @@
 :root {
     /* Colors */
-    --color-bg: #f8fafc;
+    --color-bg: #f0f4f8;
     --color-text: #1e293b;
     --color-primary: #3b82f6;
     --color-primary-light: #60a5fa;
@@ -42,11 +42,11 @@
     /* Typography */
     --font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     --font-size-xs: 0.5rem;
-    --font-size-sm: 0.75rem;
-    --font-size-base: 0.875rem;
-    --font-size-lg: 1rem;
-    --font-size-xl: 1.125rem;
-    --font-size-2xl: 1.25rem;
+    --font-size-sm: 0.8125rem;
+    --font-size-base: 0.9375rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
     
     --font-weight-normal: 400;
     --font-weight-medium: 500;
@@ -247,4 +247,15 @@
   font-family: "Audiowide", serif;
   font-weight: 400;
   font-style: normal;
+}
+
+@media print {
+  html, body {
+    background: #fff !important;
+    color: #000;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }

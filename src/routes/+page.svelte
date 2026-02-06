@@ -167,7 +167,7 @@
 <style>
 	.resume-container {
 		max-width: 1200px;
-		margin: 12px auto;
+		margin: 28px auto;
 		padding: 0 16px;
 	}
 
@@ -241,11 +241,13 @@
 
 	.header h1 {
 		font-size: var(--font-size-2xl);
+		line-height: 1.2;
 		margin: 0;
 	}
 
 	.header h2 {
 		font-size: var(--font-size-xl);
+		line-height: 1.3;
 		color: var(--color-primary);
 		margin: 4px 0;
 	}
@@ -262,6 +264,14 @@
 		box-shadow: var(--shadow-sm);
 	}
 
+	.main-content section {
+		margin-bottom: 24px;
+	}
+
+	.main-content section:last-child {
+		margin-bottom: 0;
+	}
+
 	.sidebar {
 		background: white;
 		border-radius: var(--radius-lg);
@@ -271,7 +281,8 @@
 	}
 
 	.section-title {
-		font-size: var(--font-size-lg);
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-bold);
 		color: var(--color-neutral-900);
 		margin: 0 0 12px 0;
 		padding-bottom: 4px;
@@ -300,11 +311,11 @@
 	}
 
 	.skill-tag {
-		background: var(--color-neutral-100);
+		background: var(--color-neutral-200);
 		padding: 2px 8px;
 		border-radius: var(--radius-sm);
 		font-size: var(--font-size-sm);
-		color: var(--color-neutral-700);
+		color: var(--color-neutral-800);
 	}
 
 	.experience-item {
@@ -402,14 +413,175 @@
 		gap: 4px;
 		margin-top: 8px;
 	}
+	.projects-reason {
+		font-size: var(--font-size-base);
+		color: var(--color-neutral-600);
+		font-style: italic;
+		border-left: 3px solid var(--color-primary-light);
+		padding: 8px 12px;
+		margin-bottom: 12px;
+		background: var(--color-neutral-50);
+		border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	}
+
 	@media (max-width: 768px) {
 		.skills-game-desktop {
 			display: none;
 		}
 	}
+
 	@media print {
 		.skills-game-desktop {
 			display: none;
+		}
+
+		/* Layout */
+		.resume-container {
+			margin: 0;
+			padding: 0;
+			background: #fff;
+		}
+
+		.resume-grid {
+			display: block;
+		}
+
+		.main-content,
+		.sidebar {
+			background: none;
+			box-shadow: none;
+			padding: 0;
+		}
+
+		.main-content section {
+			margin-bottom: 16px;
+		}
+
+		/* Skills: show sidebar skills, hide mobile duplicate */
+		.sidebar .skills-section {
+			display: block !important;
+		}
+
+		.mobile-skills {
+			display: none !important;
+		}
+
+		/* Typography — tighten for print */
+		.header {
+			margin-bottom: 12px;
+			gap: 12px;
+		}
+
+		.header h1 {
+			font-size: 1.1875rem;
+		}
+
+		.header h2 {
+			font-size: 0.9375rem;
+			margin: 2px 0;
+		}
+
+		.header p {
+			margin: 2px 0;
+			font-size: 0.75rem;
+		}
+
+		.profile-image {
+			width: 76px;
+			height: 76px;
+		}
+
+		.section-title {
+			font-size: 0.875rem;
+			margin: 0 0 6px 0;
+			padding-bottom: 2px;
+			border-bottom-color: #1e40af;
+			page-break-after: avoid;
+		}
+
+		.experience-item,
+		.project-item {
+			padding: 8px 0;
+		}
+
+		.experience-title {
+			font-size: 0.875rem;
+		}
+
+		.experience-meta {
+			font-size: 0.6875rem;
+			margin: 2px 0;
+		}
+
+		.experience-description {
+			margin: 4px 0;
+			font-size: 0.8125rem;
+		}
+
+		.company-name {
+			font-size: 0.8125rem;
+		}
+
+		.skill-category {
+			font-size: 0.6875rem;
+			margin: 6px 0 2px 0;
+		}
+
+		.skill-tag {
+			background: #e5e7eb;
+			color: #111;
+			font-size: 0.6875rem;
+			padding: 1px 6px;
+		}
+
+		.skill-section {
+			margin-bottom: 8px;
+		}
+
+		.skills-list {
+			gap: 3px;
+			margin-bottom: 4px;
+		}
+
+		.project-title {
+			font-size: 0.8125rem;
+		}
+
+		.project-description {
+			font-size: 0.75rem;
+			margin: 4px 0;
+		}
+
+		.projects-reason {
+			border-left-color: #1e40af;
+			background: #f9fafb;
+			font-size: 0.75rem;
+			padding: 4px 8px;
+			margin-bottom: 6px;
+			page-break-after: avoid;
+		}
+
+		.degree {
+			font-size: 0.8125rem;
+			margin: 2px 0;
+		}
+
+		.language-item {
+			padding: 4px 0;
+			font-size: 0.8125rem;
+		}
+
+		.skill-category {
+			font-size: 0.6875rem;
+			margin: 6px 0 2px 0;
+		}
+
+		/* Colors */
+		.header h2,
+		.company-name,
+		.degree,
+		.project-title {
+			color: #1e40af;
 		}
 	}
 </style>
