@@ -9,7 +9,7 @@
 		'devops',
 		'databases',
 		'vfx',
-		'gamedev',
+		'Game Dev',
 		'methodologies'
 	]);
 </script>

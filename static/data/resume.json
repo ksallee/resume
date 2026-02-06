@@ -5,7 +5,7 @@
   "email": "kevin.sallee@gmail.com",
   "linkedin": "https://www.linkedin.com/in/kevinsallee/",
   "github": "https://www.github.com/ksallee",
-  "summary": "Product Manager / Senior Software Engineer with 19 years experience in team leadership, software architecture and development. Now focused on <b>AI integration, product strategy, and enterprise-scale solutions</b>.<br><br><b>Looking to drive innovation in AI-powered software solutions</b>, combining VFX pipeline expertise with cutting-edge AI technologies.<br><br>Previously managed and scaled engineering teams at major studios including Prime Focus and Rodeo FX.",
+  "summary": "Product Manager / Senior Software Engineer with 19 years of experience in team leadership, software architecture and development. Now focused on <b>AI integration, product strategy, and enterprise-scale solutions</b>.<br><br>Bringing AI and modern web technologies into M&E production pipelines, with hands-on experience in LLMs, agentic frameworks, and tool development.<br><br>Previously managed and scaled engineering teams at Autodesk, Prime Focus, and Rodeo FX.",
   "picture": "/me.jpg",
   "skills": {
     "programming": [
@@ -22,13 +22,12 @@
       "Django",
       "FastAPI",
       "PyQt/PySide",
-      "Flutter",
-      "Swift"
+      "SQLAlchemy",
+      "Celery"
     ],
     "Artificial Intelligence": [
       "OpenAI API",
-      "Function Calling",
-      "Structured outputs",
+      "Anthropic API",
       "OpenAI Assistants",
       "Agentic Frameworks",
       "LangChain",
@@ -41,18 +40,18 @@
       "AWS",
       "Jenkins",
       "Azure Pipelines",
-      "Github Actions"
+      "Github Actions",
+      "RabbitMQ"
     ],
     "databases": [
       "PostgreSQL",
       "MongoDB",
       "MySQL",
-      "SQLAlchemy",
       "Redis",
       "Firebase",
       "Elasticsearch"
     ],
-    "gamedev": [
+    "Game Dev": [
       "Defold",
       "Godot"
     ],
@@ -70,7 +69,6 @@
       "Product Management",
       "Team Leadership",
       "Software Architecture",
-      "Problem Solving",
       "Agile Methodologies",
       "Test-Driven Development",
       "Team Mentorship",
@@ -85,23 +83,23 @@
       "period": "Mar 2025 - Present",
       "duration": "Contract",
       "location": "Valle de Bravo, México / Remote",
-      "description": "• Leading product strategy for Flow Asset Management<br>• Driving roadmap and feature prioritization for enterprise-scale asset management solutions in Media & Entertainment"
+      "description": "• Leading product strategy for Flow Asset Management<br>• Driving roadmap and feature prioritization for asset management solutions in Media & Entertainment"
     },
     {
       "company": "GPL Technologies",
       "title": "Senior Software Engineer",
-      "period": "2019 - Present",
+      "period": "Apr 2019 - Jan 2025",
       "duration": "6 years",
       "location": "Remote",
-      "description": "• Led development of mission-critical software solutions for leading Media & Entertainment companies<br>• Built scalable applications and automated workflows for world-leading VFX and game companies"
+      "description": "• Built delivery tools (Aspera, S3, multi-protocol transfers) and web services for Marvel, Netflix, Electronic Arts, Warner Bros Animation, and Boxel Studio<br>• Developed reporting applications and a configurable Shotgun Event Daemon/webhook system with parameterized scripts<br>• Delivered end-to-end consulting engagements across VFX, animation, and gaming"
     },
     {
-      "company": "Major Studios (Cinesite, Rodeo FX, Animal Logic, Prime Focus, etc)",
-      "title": "Head of VFX Pipeline / Software Engineer",
+      "company": "Prime Focus, Rodeo FX, Animal Logic, Cinesite, Pipangaï, Cluster Studio, Duran Duboi, Attitude Studio, The Bakery",
+      "title": "Head of VFX Pipeline / Senior Software Engineer",
       "period": "2008 - 2019",
       "duration": "11 years",
       "location": "Global",
-      "description": "• Head of VFX Pipeline at Prime Focus and Rodeo FX<br>• Scaled and led engineering teams across the globe<br>• Architected enterprise-grade VFX pipeline systems"
+      "description": "• Head of Pipeline at Prime Focus (Mumbai) and Rodeo FX (Montreal), managing and scaling engineering teams<br>• Grew the Prime Focus pipeline team from 5 to 18 engineers in 12 months<br>• Built procedural scattering/modeling UIs and prototyped early USD tooling at Animal Logic; designed proprietary animation software at The Bakery<br>• Contributed to feature films including <i>Lego Batman</i>, <i>Lego Ninjago</i>, <i>Sin City 2</i>, <i>Adama</i>, <i>Jack and the Cuckoo-Clock Heart</i>, and <i>The Prodigies</i>"
     }
   ],
   "education": [
@@ -142,8 +140,8 @@
     {
       "title": "FlowPilot",
       "url": "https://www.flowpilot.studio/",
-      "description": "AI-powered tools for Flow Production Tracking. Lets studios build dashboards, automations, and live data exports using natural language instead of Python scripts. Launched January 2026.",
-      "tech": ["AI/LLM", "Flow Production Tracking", "Svelte", "Natural Language Processing", "Real-time Data"]
+      "description": "AI-powered SaaS for Flow Production Tracking. Studios build dashboards, automations, and live data exports using natural language — replacing weeks of Python scripting and event daemon setup. Launched January 2026, in public beta.",
+      "tech": ["AI/LLM", "Flow Production Tracking", "Svelte", "AWS", "Celery", "RabbitMQ"]
     },
     {
       "title": "Alerta Abejas",
@@ -156,13 +154,7 @@
       "url": "https://greenwavereport.netlify.app/",
       "description": "Real-time monitoring dashboard for Bend's river surfing community. Integrates multiple data sources to provide essential wave conditions and environmental metrics.",
       "tech": ["Svelte", "Real-time Data", "Data Visualization", "API Integration"]
-    },
-    {
-      "title": "Midjourney Prompt Generator",
-      "url": "https://midjourney-prompt-generator.netlify.app/",
-      "description": "Democratizing access to AI art creation. AI-powered tool leveraging ChatGPT to generate contextual Midjourney prompts with multiple creative approaches.",
-      "tech": ["ChatGPT API", "Svelte", "AI Integration"]
     }
   ],
-  "projects_reason": "<b>I love building software that makes a difference. I'm passionate about AI and modern web development</b>, and I'm always looking for new ways to combine these technologies to create innovative solutions. I'm particularly interested in projects that leverage AI to solve real-world problems, and I'm excited to work with teams that share my passion for cutting-edge technology."
+  "projects_reason": "Side projects where I apply AI and modern web technologies to practical problems — from studio production tools to community apps."
 }

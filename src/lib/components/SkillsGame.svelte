@@ -18,7 +18,7 @@
 		devops: '#f97316',           // orange
 		databases: '#14b8a6',        // teal
 		vfx: '#eab308',              // yellow
-		gamedev: '#22c55e',          // green
+		'Game Dev': '#22c55e',          // green
 		methodologies: '#6366f1'     // indigo
 	};
 
@@ -29,7 +29,7 @@
 		devops: "DevOps done! Docker, CI/CD, AWS - Kevin ships and scales production systems.",
 		databases: "Database pro! PostgreSQL, MongoDB, Redis - Kevin designs data solutions.",
 		vfx: "VFX pipeline master! Flow Production Tracking, Maya, Nuke - deep industry expertise.",
-		gamedev: "Game dev skills! Building with Defold and Godot for interactive experiences.",
+		'Game Dev': "Game dev skills! Building with Defold and Godot for interactive experiences.",
 		methodologies: "Leadership complete! Product management, architecture, and team mentorship."
 	};
 
@@ -40,7 +40,7 @@
 		'devops',
 		'databases',
 		'vfx',
-		'gamedev',
+		'Game Dev',
 		'methodologies'
 	];
 
@@ -643,12 +643,11 @@
 		})).filter(p => p.life > 0);
 
 		// Check collisions with skills (use bounding box for better hit detection)
+		// Collect hits first, then process — avoids mutating $state arrays during iteration
+		const skillsToCollect = [];
 		for (const skill of floatingSkills) {
-			// Estimate width based on skill name length (roughly 8px per char + padding)
 			const skillWidth = Math.max(80, skill.name.length * 8 + 32);
 			const skillHeight = 36;
-
-			// Bounding box collision (skill is centered at skill.x, skill.y)
 			const halfWidth = skillWidth / 2;
 			const halfHeight = skillHeight / 2;
 
@@ -656,18 +655,25 @@
 				shipX < skill.x + halfWidth + 20 &&
 				shipY > skill.y - halfHeight - 20 &&
 				shipY < skill.y + halfHeight + 20) {
-				collectSkill(skill);
+				skillsToCollect.push(skill);
 			}
+		}
+		for (const skill of skillsToCollect) {
+			collectSkill(skill);
 		}
 
 		// Check collisions with bugs
+		const bugsToHit = [];
 		for (const bug of bugs) {
 			const dx = shipX - bug.x;
 			const dy = shipY - bug.y;
 			const distance = Math.sqrt(dx * dx + dy * dy);
 			if (distance < 30) {
-				hitBug(bug);
+				bugsToHit.push(bug);
 			}
+		}
+		for (const bug of bugsToHit) {
+			hitBug(bug);
 		}
 
 		animationFrame = requestAnimationFrame(updateGame);
