@@ -1556,6 +1556,7 @@
 		font-weight: var(--font-weight-medium);
 		transition: all 0.2s;
 		font-size: 14px;
+    width: 210px;
 	}
 
 	.start-game-button:hover {

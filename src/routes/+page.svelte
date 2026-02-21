@@ -1,5 +1,9 @@
 <script>
+  import { onMount } from 'svelte';
   import SkillsGame from '$lib/components/SkillsGame.svelte';
+  import ThemeRoulette from '$lib/components/ThemeRoulette.svelte';
+
+  onMount(() => import('iconify-icon'));
   const { data } = $props();
   let profile = $state(data.profile);
   let sortedCategories = $derived([
@@ -13,24 +17,34 @@
     'methodologies'
   ]);
 
-  const catClass = (category) =>
-    'cat-' + category.toLowerCase().replace(/[\s\/]/g, '-');
+  const catColorVar = (category) => {
+    const map = {
+      'programming': 'var(--cat-programming)',
+      'frameworks': 'var(--cat-frameworks)',
+      'artificial intelligence': 'var(--cat-ai)',
+      'devops': 'var(--cat-devops)',
+      'databases': 'var(--cat-databases)',
+      'vfx': 'var(--cat-vfx)',
+      'game dev': 'var(--cat-gamedev)',
+      'methodologies': 'var(--cat-methodologies)',
+    };
+    return map[category.toLowerCase()] || null;
+  };
 
-  // Reverse lookup: skill/tech name -> category class
-  let skillToCategory = $derived(() => {
+  let skillToCatVar = $derived(() => {
     const map = {};
     for (const category of sortedCategories) {
-      const cls = catClass(category);
+      const v = catColorVar(category);
       for (const skill of profile.skills[category] || []) {
-        map[skill.toLowerCase()] = cls;
+        map[skill.toLowerCase()] = v;
       }
     }
     return map;
   });
 
-  const techClass = (tech) => {
-    const map = skillToCategory();
-    return map[tech.toLowerCase()] || '';
+  const techColorVar = (tech) => {
+    const map = skillToCatVar();
+    return map[tech.toLowerCase()] || null;
   };
 </script>
 
@@ -58,17 +72,16 @@
       <SkillsGame skills={profile.skills} />
     </div>
   </header>
+  <ThemeRoulette />
 
   <div class="resume-grid">
     <main class="main-content">
-      <!-- Summary -->
-      <section>
+      <section class="grid-section" style="grid-area: summary">
         <h3 class="section-title">Summary</h3>
         <p>{@html profile.summary}</p>
       </section>
 
-      <!-- Experience -->
-      <section>
+      <section class="grid-section" style="grid-area: experience">
         <h3 class="section-title">Experience</h3>
         {#each profile.experience as job}
           <div class="experience-item">
@@ -99,25 +112,7 @@
         {/each}
       </section>
 
-      <!-- Mobile-only skills section -->
-      <div class="mobile-skills">
-        <section>
-          <h3 class="section-title">Skills</h3>
-          {#each sortedCategories as category}
-            <div class="skill-section">
-              <h4 class="skill-category">{category}</h4>
-              <div class="skills-list">
-                {#each profile.skills[category] as skill}
-                  <span class="skill-tag {catClass(category)}">{skill}</span>
-                {/each}
-              </div>
-            </div>
-          {/each}
-        </section>
-      </div>
-
-      <!-- Projects -->
-      <section>
+      <section class="grid-section" style="grid-area: projects">
         <h3 class="section-title">Personal Projects / Volunteering</h3>
         <div class="projects-reason">
           {@html profile.projects_reason}
@@ -132,15 +127,14 @@
             <p class="project-description">{project.description}</p>
             <div class="project-tech">
               {#each project.tech as tech}
-                <span class="skill-tag {techClass(tech)}">{tech}</span>
+                <span class="skill-tag" style:--tag-color={techColorVar(tech)}>{tech}</span>
               {/each}
             </div>
           </div>
         {/each}
       </section>
 
-      <!-- Education -->
-      <section>
+      <section class="grid-section" style="grid-area: education">
         <h3 class="section-title">Education</h3>
         {#each profile.education as edu}
           <div class="experience-item">
@@ -156,23 +150,21 @@
     </main>
 
     <aside class="sidebar">
-      <!-- Skills -->
-      <section class="skills-section">
+      <section class="grid-section" style="grid-area: skills">
         <h3 class="section-title">Skills</h3>
         {#each sortedCategories as category}
           <div class="skill-section">
             <h4 class="skill-category">{category}</h4>
             <div class="skills-list">
               {#each profile.skills[category] as skill}
-                <span class="skill-tag {catClass(category)}">{skill}</span>
+                <span class="skill-tag" style:--tag-color={catColorVar(category)}>{skill}</span>
               {/each}
             </div>
           </div>
         {/each}
       </section>
 
-      <!-- Languages -->
-      <section>
+      <section class="grid-section" style="grid-area: languages">
         <h3 class="section-title">Languages</h3>
         {#each profile.languages as lang}
           <div class="language-item">
@@ -194,45 +186,42 @@
 
   .resume-grid {
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 20px;
+    grid-template-areas: var(--grid-template, none);
+    grid-template-columns: var(--layout-columns);
+    gap: var(--layout-gap);
     align-items: start;
     margin-top: 20px;
   }
 
+  .main-content {
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-card-border);
+  }
+
+  .main-content .grid-section {
+    margin-bottom: 28px;
+  }
+
+  .main-content .grid-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .sidebar {
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-card-border);
+    align-self: start;
+  }
+
   @media (max-width: 768px) {
     .resume-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .main-content {
-      order: 1;
-    }
-
-    .sidebar {
-      order: 3;
-    }
-
-    .mobile-skills {
-      order: 2;
-      background: var(--color-surface);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(28, 25, 23, 0.06);
-    }
-  }
-
-  .mobile-skills {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    .mobile-skills {
-      display: block;
-    }
-
-    .sidebar .skills-section {
-      display: none;
+      grid-template-columns: 1fr !important;
+      grid-template-areas: none !important;
     }
   }
 
@@ -256,7 +245,7 @@
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid var(--color-neutral-200);
-    box-shadow: 0 2px 12px rgba(28, 25, 23, 0.08);
+    box-shadow: var(--shadow-md);
   }
 
   .header h1 {
@@ -306,31 +295,7 @@
     border-color: var(--color-accent);
   }
 
-  /* ── Cards ── */
-  .main-content {
-    background: var(--color-surface);
-    border-radius: var(--radius-xl);
-    padding: 24px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(28, 25, 23, 0.06);
-  }
-
-  .main-content section {
-    margin-bottom: 28px;
-  }
-
-  .main-content section:last-child {
-    margin-bottom: 0;
-  }
-
-  .sidebar {
-    background: var(--color-surface);
-    border-radius: var(--radius-xl);
-    padding: 24px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(28, 25, 23, 0.06);
-    align-self: start;
-  }
+  /* ── Cards — see .main-content / .sidebar / .split-layout above ── */
 
   /* ── Section Titles ── */
   .section-title {
@@ -366,66 +331,25 @@
   }
 
   .skill-tag {
-    background: var(--color-neutral-100);
+    --tag-color: var(--color-neutral-500);
+    background: color-mix(in srgb, var(--tag-color) 10%, transparent);
+    color: var(--tag-color);
+    border: 1px solid color-mix(in srgb, var(--tag-color) 20%, transparent);
     padding: 3px 10px;
     border-radius: var(--radius-sm);
     font-size: var(--font-size-sm);
-    color: var(--color-neutral-700);
-    border: 1px solid var(--color-neutral-200);
     transition: transform 0.15s, box-shadow 0.15s;
   }
 
   .skill-tag:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(28, 25, 23, 0.08);
-  }
-
-  /* Category-colored skill tags (dynamic classes from catClass()) */
-  .skill-tag:global(.cat-programming) {
-    background: rgba(37, 99, 235, 0.08);
-    color: #1d4ed8;
-    border-color: rgba(37, 99, 235, 0.2);
-  }
-  .skill-tag:global(.cat-frameworks) {
-    background: rgba(124, 58, 237, 0.08);
-    color: #6d28d9;
-    border-color: rgba(124, 58, 237, 0.2);
-  }
-  .skill-tag:global(.cat-artificial-intelligence) {
-    background: rgba(219, 39, 119, 0.08);
-    color: #be185d;
-    border-color: rgba(219, 39, 119, 0.2);
-  }
-  .skill-tag:global(.cat-devops) {
-    background: rgba(234, 88, 12, 0.08);
-    color: #c2410c;
-    border-color: rgba(234, 88, 12, 0.2);
-  }
-  .skill-tag:global(.cat-databases) {
-    background: rgba(13, 148, 136, 0.08);
-    color: #0f766e;
-    border-color: rgba(13, 148, 136, 0.2);
-  }
-  .skill-tag:global(.cat-vfx) {
-    background: rgba(202, 138, 4, 0.08);
-    color: #a16207;
-    border-color: rgba(202, 138, 4, 0.2);
-  }
-  .skill-tag:global(.cat-game-dev) {
-    background: rgba(22, 163, 74, 0.08);
-    color: #15803d;
-    border-color: rgba(22, 163, 74, 0.2);
-  }
-  .skill-tag:global(.cat-methodologies) {
-    background: rgba(79, 70, 229, 0.08);
-    color: #4338ca;
-    border-color: rgba(79, 70, 229, 0.2);
+    box-shadow: var(--shadow-sm);
   }
 
   /* ── Experience ── */
   .experience-item {
     padding: 14px 0;
-    border-bottom: 1px solid rgba(28, 25, 23, 0.08);
+    border-bottom: 1px solid var(--color-divider);
     page-break-inside: avoid;
   }
 
@@ -476,7 +400,7 @@
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(28, 25, 23, 0.08);
+    border-bottom: 1px solid var(--color-divider);
   }
 
   .language-item:last-child {
@@ -491,7 +415,7 @@
   /* ── Projects ── */
   .project-item {
     padding: 14px 0;
-    border-bottom: 1px solid rgba(28, 25, 23, 0.08);
+    border-bottom: 1px solid var(--color-divider);
     page-break-inside: avoid;
   }
 
@@ -569,7 +493,6 @@
     .resume-container {
       margin: 0;
       padding: 0;
-      background: #fff;
     }
 
     .resume-grid {
@@ -578,22 +501,20 @@
 
     .main-content,
     .sidebar {
-      background: none;
-      box-shadow: none;
-      border: none;
-      padding: 0;
-    }
-
-    .main-content section {
-      margin-bottom: 16px;
-    }
-
-    .sidebar .skills-section {
       display: block !important;
+      background: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
     }
 
-    .mobile-skills {
-      display: none !important;
+    .grid-section {
+      background: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      margin-bottom: 16px !important;
     }
 
     .header {
@@ -681,7 +602,7 @@
     }
 
     .projects-reason {
-      background: #fef3c7;
+      background: var(--color-accent-light, #fef3c7);
       font-size: 0.75rem;
       padding: 4px 8px;
       margin-bottom: 6px;

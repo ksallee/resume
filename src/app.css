@@ -33,6 +33,14 @@
   --cat-gamedev: #16a34a;
   --cat-methodologies: #4f46e5;
 
+  /* Surface */
+  --color-card-border: rgba(28, 25, 23, 0.06);
+  --color-divider: rgba(28, 25, 23, 0.08);
+
+  /* Layout */
+  --layout-columns: 1fr 300px;
+  --layout-gap: 20px;
+
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -79,7 +87,7 @@ html {
 body {
   font-family: var(--font-family);
   font-size: var(--font-size-base);
-  line-height: 1.5;
+  line-height: var(--line-height, 1.5);
   background: var(--color-bg);
   color: var(--color-text);
   margin: 0;
@@ -257,8 +265,8 @@ select:focus {
 
 @media print {
   html, body {
-    background: #fff !important;
-    color: #000;
+    background: var(--print-bg, #fff) !important;
+    color: var(--color-text, #000);
     font-size: 0.8125rem;
     line-height: 1.4;
     -webkit-print-color-adjust: exact;
