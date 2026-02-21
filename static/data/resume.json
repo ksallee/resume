@@ -21,6 +21,7 @@
       "React",
       "Django",
       "FastAPI",
+      "D3.js",
       "PyQt/PySide",
       "SQLAlchemy",
       "Celery"
@@ -32,7 +33,9 @@
       "Agentic Frameworks",
       "LangChain",
       "Anthropic MCP",
-      "Vector Databases"
+      "Vector Databases",
+      "Machine Learning",
+      "scikit-learn"
     ],
     "devops": [
       "Docker",
@@ -141,20 +144,26 @@
       "title": "FlowPilot",
       "url": "https://www.flowpilot.studio/",
       "description": "AI-powered SaaS for Flow Production Tracking. Studios build dashboards, automations, and live data exports using natural language — replacing weeks of Python scripting and event daemon setup. Launched January 2026, in public beta.",
-      "tech": ["AI/LLM", "Flow Production Tracking", "Svelte", "AWS", "Celery", "RabbitMQ"]
+      "tech": ["Svelte", "Celery", "Agentic Frameworks", "AWS", "RabbitMQ", "Autodesk Flow Production Tracking"]
+    },
+    {
+      "title": "Senescence Slayers (Hackaging.ai Winner)",
+      "url": "https://senescence-slayers.vercel.app/",
+      "description": "Prize-winning automated genomics platform built alongside a geneticist. Transforms raw RNA-seq data into interactive web reports in minutes, featuring D3.js force graphs, UMAP clustering, ML classification, and context-aware Claude AI agents for rapid target discovery.",
+      "tech": ["Python", "Svelte", "D3.js", "Anthropic API", "scikit-learn", "Machine Learning"]
     },
     {
       "title": "Alerta Abejas",
       "url": "https://alerta-abejas.web.app/",
       "description": "Volunteered with Conahcyt (research NGO) to develop a web app protecting local bee populations. Progressive Web App for incident tracking, built with offline-first architecture.",
-      "tech": ["PWA", "Firebase", "Offline-First", "Geolocation API", "Svelte"]
+      "tech": ["Svelte", "Firebase", "PWA", "Offline-First", "Geolocation API"]
     },
     {
       "title": "Green Wave Report",
       "url": "https://greenwavereport.netlify.app/",
       "description": "Real-time monitoring dashboard for Bend's river surfing community. Integrates multiple data sources to provide essential wave conditions and environmental metrics.",
-      "tech": ["Svelte", "Real-time Data", "Data Visualization", "API Integration"]
+      "tech": ["Svelte", "Data Visualization", "Real-time Data", "API Integration"]
     }
   ],
-  "projects_reason": "Side projects where I apply AI and modern web technologies to practical problems — from studio production tools to community apps."
+  "projects_reason": "Side projects where I apply AI and modern web technologies to practical problems — from studio production tools to data-driven scientific analysis and community apps."
 }
