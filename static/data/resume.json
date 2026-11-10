@@ -93,7 +93,7 @@
       "period": "Aug 2026 - Present",
       "duration": "",
       "location": "Valle de Bravo, México / Remote",
-      "description": "• Build open source tools for Flow Production Tracking, used by film and game studios: sg-widgets, sg-groundtruth, sg-comfyui (see Projects)<br>• Set up a way of working for two people and their coding agents: one issue per change, the failing test first, and rules that CI checks (published as agentkit)<br>• Founded Automágico, a small AI studio: websites and AI tools for local businesses, and in-person AI classes"
+      "description": "• Build open source tools for Flow Production Tracking, used by film and game studios: sg-widgets, sg-groundtruth, sg-comfyui (see Projects)<br>• Set up a way of working for two people and their coding agents: one issue per change, the failing test first, and rules that CI checks (agentkit)<br>• Founded Automágico, a small AI studio: websites and AI tools for local businesses, and in-person AI classes"
     },
     {
       "company": "FlowPilot Studio",
@@ -157,7 +157,7 @@
       "period": "Mar 2015 - Feb 2016",
       "duration": "",
       "location": "Sydney",
-      "description": "• Built the UI for the procedural scattering system and prototyped a Maya outliner for an early version of USD. Film credits: <i>Lego Batman</i>, <i>Lego Ninjago</i>"
+      "description": "• Built the UI for the procedural scattering system and prototyped a Maya outliner for early USD. Credits: <i>Lego Batman</i>, <i>Lego Ninjago</i>"
     },
     {
       "company": "Pipangaï",
@@ -173,7 +173,7 @@
       "period": "Jan 2013 - Apr 2014",
       "duration": "",
       "location": "Mumbai",
-      "description": "• Hired and grew the pipeline team from 3 support engineers to 20+ developers in one year<br>• Turned a support team into a development team, introduced development practices and fixed long-standing production issues. Film credits: <i>Sin City 2</i>"
+      "description": "• Hired and grew the pipeline team from 3 support engineers to 20+ developers in one year<br>• Turned a support team into a development team and introduced development practices. Credit: <i>Sin City 2</i>"
     },
     {
       "company": "Cluster Studio, Duran Duboi, Attitude Studio, The Bakery",
@@ -181,7 +181,7 @@
       "period": "2008 - 2012",
       "duration": "",
       "location": "",
-      "description": "• Pipeline and tools for feature films including <i>Jack and the Cuckoo-Clock Heart</i> and <i>The Prodigies</i>; designed proprietary animation software at The Bakery"
+      "description": "• Pipeline and tools for feature films including <i>Jack and the Cuckoo-Clock Heart</i> and <i>The Prodigies</i>; designed animation software at The Bakery"
     }
   ],
   "education": [
