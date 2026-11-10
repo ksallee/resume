@@ -1,11 +1,11 @@
 {
   "name": "Kevin Sallée",
-  "title": "Product Manager | Senior Software Engineer",
-  "location": "Valle de Bravo, México / Remote",
+  "title": "Engineering Lead | Senior Software Engineer",
+  "location": "Valle de Bravo, México · Remote, US Central time (UTC-6)",
   "email": "kevin.sallee@gmail.com",
   "linkedin": "https://www.linkedin.com/in/kevinsallee/",
-  "github": "https://www.github.com/ksallee",
-  "summary": "Product Manager / Senior Software Engineer with 19 years of experience in team leadership, software architecture and development. Now focused on <b>AI integration, product strategy, and enterprise-scale solutions</b>.<br><br>Bringing AI and modern web technologies into M&E production pipelines, with hands-on experience in LLMs, agentic frameworks, and tool development.<br><br>Previously managed and scaled engineering teams at Autodesk, Prime Focus, and Rodeo FX.",
+  "github": "https://github.com/ksallee",
+  "summary": "Engineering lead and senior software engineer with 19 years of experience. I design the architecture, write the code test-first, and set up teams and AI coding agents to work the same way.<br><br>I was Head of Pipeline at Prime Focus, where I hired and grew a team from 3 to 20+ developers, and at Rodeo FX. I then spent six years consulting for Marvel, Netflix and Electronic Arts, covering sales, scoping, estimates, architecture, development and support, followed by product management at Autodesk and co-founding an AI SaaS startup.<br><br>I now build AI products and open source tools. Agents write most of the code, under tests, CI gates and my review.",
   "picture": "/me.jpg",
   "skills": {
     "programming": [
@@ -17,8 +17,9 @@
       "CSS"
     ],
     "frameworks": [
-      "Svelte",
       "React",
+      "Svelte",
+      "SvelteKit",
       "Django",
       "FastAPI",
       "D3.js",
@@ -27,12 +28,13 @@
       "Celery"
     ],
     "Artificial Intelligence": [
-      "OpenAI API",
+      "Claude Code",
+      "AI Coding Agents",
       "Anthropic API",
-      "OpenAI Assistants",
+      "OpenAI API",
+      "MCP",
       "Agentic Frameworks",
       "LangChain",
-      "Anthropic MCP",
       "Vector Databases",
       "Machine Learning",
       "scikit-learn"
@@ -41,9 +43,10 @@
       "Docker",
       "CI/CD",
       "AWS",
+      "Github Actions",
+      "Vercel",
       "Jenkins",
       "Azure Pipelines",
-      "Github Actions",
       "RabbitMQ"
     ],
     "databases": [
@@ -69,40 +72,108 @@
       "OpenTimelineIO"
     ],
     "methodologies": [
-      "Product Management",
-      "Team Leadership",
-      "Software Architecture",
-      "Agile Methodologies",
       "Test-Driven Development",
+      "Software Architecture",
+      "AI-Assisted Delivery",
+      "Code Review",
+      "Team Leadership",
+      "Hiring",
       "Team Mentorship",
+      "Scoping & Estimation",
+      "Agile Methodologies",
+      "Product Management",
       "VFX Pipeline Development",
       "R&D"
     ]
   },
   "experience": [
     {
-      "company": "Autodesk",
-      "title": "Product Manager - Flow Asset Management",
-      "period": "Mar 2025 - Present",
-      "duration": "Contract",
+      "company": "Independent / Automágico",
+      "title": "Software Engineer, AI Products and Open Source",
+      "period": "Aug 2026 - Present",
+      "duration": "",
       "location": "Valle de Bravo, México / Remote",
-      "description": "• Leading product strategy for Flow Asset Management<br>• Driving roadmap and feature prioritization for asset management solutions in Media & Entertainment"
+      "description": "• Build open source tools for Flow Production Tracking, used by film and game studios: sg-widgets, sg-groundtruth, sg-comfyui (see Projects)<br>• Set up a way of working for two people and their coding agents: one issue per change, the failing test first, and rules that CI checks (published as agentkit)<br>• Founded Automágico, a small AI studio: websites and AI tools for local businesses, and in-person AI classes"
+    },
+    {
+      "company": "FlowPilot Studio",
+      "title": "Co-Founder",
+      "period": "Oct 2025 - Jul 2026",
+      "duration": "",
+      "location": "Remote",
+      "description": "• Co-founded an AI SaaS for Flow Production Tracking. Studios build dashboards, automations and data exports in natural language, in place of Python scripts and event daemons<br>• Built the product with Svelte, TypeScript, Celery, RabbitMQ and AWS, and launched it in public beta in January 2026"
+    },
+    {
+      "company": "Autodesk",
+      "title": "Product Manager, Flow Asset Management",
+      "period": "Mar 2025 - Jul 2026",
+      "duration": "Contract",
+      "location": "Remote",
+      "description": "• Product strategy, roadmap and feature prioritisation for asset management in Media and Entertainment"
     },
     {
       "company": "GPL Technologies",
-      "title": "Senior Software Engineer",
+      "title": "Senior Software Engineer / Consultant",
       "period": "Apr 2019 - Jan 2025",
       "duration": "6 years",
       "location": "Remote",
-      "description": "• Built delivery tools (Aspera, S3, multi-protocol transfers) and web services for Marvel, Netflix, Electronic Arts, Warner Bros Animation, and Boxel Studio<br>• Developed reporting applications and a configurable Shotgun Event Daemon/webhook system with parameterized scripts<br>• Delivered end-to-end consulting engagements across VFX, animation, and gaming"
+      "description": "• Ran consulting engagements end to end for Marvel, Netflix, Electronic Arts, Warner Bros Animation and Boxel Studio: sales calls, technical specs, estimates, architecture, development, QA and support<br>• Built delivery tools (Aspera, S3, multi-protocol transfers), web services and reporting applications<br>• Built a configurable event and webhook system for Flow Production Tracking, with parameterized scripts"
     },
     {
-      "company": "Prime Focus, Rodeo FX, Animal Logic, Cinesite, Pipangaï, Cluster Studio, Duran Duboi, Attitude Studio, The Bakery",
-      "title": "Head of VFX Pipeline / Senior Software Engineer",
-      "period": "2008 - 2019",
-      "duration": "11 years",
-      "location": "Global",
-      "description": "• Head of Pipeline at Prime Focus (Mumbai) and Rodeo FX (Montreal), managing and scaling engineering teams<br>• Grew the Prime Focus pipeline team from 5 to 18 engineers in 12 months<br>• Built procedural scattering/modeling UIs and prototyped early USD tooling at Animal Logic; designed proprietary animation software at The Bakery<br>• Contributed to feature films including <i>Lego Batman</i>, <i>Lego Ninjago</i>, <i>Sin City 2</i>, <i>Adama</i>, <i>Jack and the Cuckoo-Clock Heart</i>, and <i>The Prodigies</i>"
+      "company": "Sano Intelligence",
+      "title": "Software Engineer",
+      "period": "Mar 2018 - Oct 2018",
+      "duration": "",
+      "location": "",
+      "description": "• Built the desktop app that controls boards of microcontrollers (motors, temperature probes), test-first, with Python, PyQt, Jenkins and AWS"
+    },
+    {
+      "company": "Cinesite",
+      "title": "Lead R&D Developer",
+      "period": "Sep 2017 - Mar 2018",
+      "duration": "",
+      "location": "Montreal",
+      "description": "• Maintained the in-house services, the build system and the codebase (Python, Docker, Elasticsearch)"
+    },
+    {
+      "company": "Rodeo FX",
+      "title": "Head of Pipeline",
+      "period": "Nov 2016 - Jul 2017",
+      "duration": "",
+      "location": "Montreal",
+      "description": "• Joined as senior developer, then led the pipeline team, which builds the software a film studio runs its production on<br>• Led R&D on a node-based execution system"
+    },
+    {
+      "company": "Animal Logic",
+      "title": "Senior Pipeline Developer",
+      "period": "Mar 2015 - Feb 2016",
+      "duration": "",
+      "location": "Sydney",
+      "description": "• Built the UI for the procedural scattering system and prototyped a Maya outliner for an early version of USD. Film credits: <i>Lego Batman</i>, <i>Lego Ninjago</i>"
+    },
+    {
+      "company": "Pipangaï",
+      "title": "Senior Pipeline Engineer",
+      "period": "May 2014 - Mar 2015",
+      "duration": "",
+      "location": "Réunion Island",
+      "description": "• Built and maintained the pipeline and the publishing tools of every department for the feature film <i>Adama</i>"
+    },
+    {
+      "company": "Prime Focus",
+      "title": "Head of Pipeline",
+      "period": "Jan 2013 - Apr 2014",
+      "duration": "",
+      "location": "Mumbai",
+      "description": "• Hired and grew the pipeline team from 3 support engineers to 20+ developers in one year<br>• Turned a support team into a development team, introduced development practices and fixed long-standing production issues. Film credits: <i>Sin City 2</i>"
+    },
+    {
+      "company": "Cluster Studio, Duran Duboi, Attitude Studio, The Bakery",
+      "title": "Pipeline Developer",
+      "period": "2008 - 2012",
+      "duration": "",
+      "location": "",
+      "description": "• Pipeline and tools for feature films including <i>Jack and the Cuckoo-Clock Heart</i> and <i>The Prodigies</i>; designed proprietary animation software at The Bakery"
     }
   ],
   "education": [
@@ -141,29 +212,66 @@
   ],
   "projects": [
     {
-      "title": "FlowPilot",
-      "url": "https://www.flowpilot.studio/",
-      "description": "AI-powered SaaS for Flow Production Tracking. Studios build dashboards, automations, and live data exports using natural language — replacing weeks of Python scripting and event daemon setup. Launched January 2026, in public beta.",
-      "tech": ["Svelte", "Celery", "Agentic Frameworks", "AWS", "RabbitMQ", "Autodesk Flow Production Tracking"]
+      "title": "agentkit",
+      "url": "https://github.com/ksallee/agentkit",
+      "description": "How two people and their coding agents build a project together: rules, skills, role guides and a design pipeline. Gates check each rule in CI, so a convention stays enforced after people forget it.",
+      "tech": [
+        "Python",
+        "Claude Code",
+        "CI/CD"
+      ]
     },
     {
-      "title": "Senescence Slayers (Hackaging.ai Winner)",
+      "title": "sg-groundtruth",
+      "url": "https://github.com/ksallee/sg-groundtruth",
+      "description": "Recorded behaviour of the Flow Production Tracking REST API. 110+ probes each ask a live site one question and store the answer verbatim, so coding agents read real behaviour before they write code against the API. Published on PyPI with a REST client and an MCP server.",
+      "tech": [
+        "Python",
+        "MCP",
+        "AI Coding Agents"
+      ]
+    },
+    {
+      "title": "sg-widgets",
+      "url": "https://github.com/ksallee/sg-widgets",
+      "description": "shadcn-compatible component library for Flow Production Tracking: one headless TypeScript core with no dependencies, React and Svelte layers on top, and a Qt port for desktop tools (sg-widgets-qt).",
+      "tech": [
+        "TypeScript",
+        "React",
+        "Svelte",
+        "PyQt/PySide"
+      ]
+    },
+    {
+      "title": "llm-ui-annotation",
+      "url": "https://github.com/ksallee/llm-ui-annotation",
+      "description": "Annotate a running UI in the browser (elements, text, drawings) and hand the feedback to a coding agent, which answers in a thread and marks each item for review. 549 unit tests and 59 Playwright end-to-end tests.",
+      "tech": [
+        "TypeScript",
+        "Svelte",
+        "Playwright"
+      ]
+    },
+    {
+      "title": "Senescence Slayers (Hackaging.ai winner)",
       "url": "https://senescence-slayers.vercel.app/",
-      "description": "Prize-winning automated genomics platform built alongside a geneticist. Transforms raw RNA-seq data into interactive web reports in minutes, featuring D3.js force graphs, UMAP clustering, ML classification, and context-aware Claude AI agents for rapid target discovery.",
-      "tech": ["Python", "Svelte", "D3.js", "Anthropic API", "scikit-learn", "Machine Learning"]
+      "description": "Prize-winning genomics platform built with a geneticist. It turns raw RNA-seq data into interactive reports in minutes, with ML classification and Claude agents for target discovery.",
+      "tech": [
+        "Python",
+        "Svelte",
+        "D3.js",
+        "scikit-learn",
+        "Anthropic API"
+      ]
     },
     {
-      "title": "Alerta Abejas",
-      "url": "https://alerta-abejas.web.app/",
-      "description": "Volunteered with Conahcyt (research NGO) to develop a web app protecting local bee populations. Progressive Web App for incident tracking, built with offline-first architecture.",
-      "tech": ["Svelte", "Firebase", "PWA", "Offline-First", "Geolocation API"]
-    },
-    {
-      "title": "Green Wave Report",
-      "url": "https://greenwavereport.netlify.app/",
-      "description": "Real-time monitoring dashboard for Bend's river surfing community. Integrates multiple data sources to provide essential wave conditions and environmental metrics.",
-      "tech": ["Svelte", "Data Visualization", "Real-time Data", "API Integration"]
+      "title": "fpt-api",
+      "url": "https://github.com/ksallee/fpt-api",
+      "description": "Wrapper around shotgun_api3 that retrieves query fields and calculated fields. My most-starred open source library.",
+      "tech": [
+        "Python"
+      ]
     }
   ],
-  "projects_reason": "Side projects where I apply AI and modern web technologies to practical problems — from studio production tools to data-driven scientific analysis and community apps."
+  "projects_reason": "Recent work, built test-first with AI coding agents: 1,200+ commits across seven public repositories in September 2026."
 }

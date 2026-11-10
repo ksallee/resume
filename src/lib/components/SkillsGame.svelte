@@ -25,12 +25,12 @@
 	const CATEGORY_MESSAGES = {
 		programming: "Programming mastery! Kevin has 19 years of experience with Python, JavaScript, TypeScript, and C++.",
 		frameworks: "Frameworks complete! From Svelte to React to Django, Kevin builds with modern tools.",
-		'Artificial Intelligence': "AI expertise unlocked! Kevin builds with OpenAI, LangChain, and custom AI pipelines.",
+		'Artificial Intelligence': "AI expertise unlocked! Kevin builds with Claude Code, coding agents, and custom AI pipelines.",
 		devops: "DevOps done! Docker, CI/CD, AWS - Kevin ships and scales production systems.",
 		databases: "Database pro! PostgreSQL, MongoDB, Redis - Kevin designs data solutions.",
 		vfx: "VFX pipeline master! Flow Production Tracking, Maya, Nuke - deep industry expertise.",
 		'Game Dev': "Game dev skills! Building with Defold and Godot for interactive experiences.",
-		methodologies: "Leadership complete! Product management, architecture, and team mentorship."
+		methodologies: "Leadership complete! Test-driven development, architecture, and team mentorship."
 	};
 
 	const CATEGORY_ORDER = [
