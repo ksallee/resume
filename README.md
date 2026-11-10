@@ -1,4 +1,4 @@
 # My resume
 
-Available at [https://kevinsallee.netlify.app](https://kevinsallee.netlify.app)
+Available at [https://kevinsallee.vercel.app](https://kevinsallee.vercel.app)
 

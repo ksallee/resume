@@ -46,11 +46,14 @@
     const map = skillToCatVar();
     return map[tech.toLowerCase()] || null;
   };
+
+  const plainText = (html) => html.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  const bareUrl = (url) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 </script>
 
 <svelte:head>
   <title>{profile.name} - Resume</title>
-  <meta name="description" content="{profile.summary}" />
+  <meta name="description" content={plainText(profile.summary)} />
   <meta name="author" content="{profile.name}" />
   <meta name="image" content="{profile.picture}" />
 </svelte:head>
@@ -64,8 +67,12 @@
       <p class="header-location">{profile.location}</p>
       <p><a href="mailto:{profile.email}">{profile.email}</a></p>
       <p class="header-links">
-        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+          <span class="screen-only">LinkedIn</span><span class="print-only">{bareUrl(profile.linkedin)}</span>
+        </a>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer">
+          <span class="screen-only">GitHub</span><span class="print-only">{bareUrl(profile.github)}</span>
+        </a>
       </p>
     </div>
     <div class="skills-game-desktop">
@@ -85,6 +92,7 @@
         <h3 class="section-title">Experience</h3>
         {#each profile.experience as job}
           <div class="experience-item">
+            <div class="experience-head">
             <h4 class="experience-title">{job.title}</h4>
             <span class="company-name">{job.company}</span>
             <div class="experience-meta">
@@ -97,6 +105,7 @@
                 <span>·</span>
                 <span class="location">{job.location}</span>
               {/if}
+            </div>
             </div>
             {#if job.description}
               <p class="experience-description">{@html job.description}</p>
@@ -113,16 +122,20 @@
       </section>
 
       <section class="grid-section" style="grid-area: projects">
-        <h3 class="section-title">Personal Projects / Volunteering</h3>
+        <h3 class="section-title">Projects</h3>
         <div class="projects-reason">
           {@html profile.projects_reason}
         </div>
         {#each profile.projects as project}
           <div class="project-item">
             <div class="project-header">
-              <a href={project.url} target="_blank" rel="noopener noreferrer" class="project-title">
-                {project.title}
-              </a>
+              {#if project.url}
+                <a href={project.url} target="_blank" rel="noopener noreferrer" class="project-title project-link">
+                  {project.title}
+                </a>
+              {:else}
+                <span class="project-title">{project.title}</span>
+              {/if}
             </div>
             <p class="project-description">{project.description}</p>
             <div class="project-tech">
@@ -137,13 +150,13 @@
       <section class="grid-section" style="grid-area: education">
         <h3 class="section-title">Education</h3>
         {#each profile.education as edu}
-          <div class="experience-item">
+          <div class="experience-item edu-item">
             <h4 class="experience-title">{edu.school}</h4>
             {#if edu.degree}
               <div class="degree">{edu.degree}</div>
             {/if}
             <div class="experience-meta">{edu.period}</div>
-            <p class="experience-description">{edu.description}</p>
+            <p class="experience-description edu-description">{edu.description}</p>
           </div>
         {/each}
       </section>
@@ -166,12 +179,14 @@
 
       <section class="grid-section" style="grid-area: languages">
         <h3 class="section-title">Languages</h3>
+        <div class="language-list">
         {#each profile.languages as lang}
           <div class="language-item">
             <strong>{lang.name}</strong>
             <span class="language-level">{lang.level}</span>
           </div>
         {/each}
+        </div>
       </section>
     </aside>
   </div>
@@ -437,19 +452,19 @@
     transition: color 0.2s, border-color 0.2s;
   }
 
-  .project-title::after {
+  .project-link::after {
     content: '\2197';
     font-size: 0.85em;
     opacity: 0.5;
     transition: opacity 0.2s, transform 0.2s;
   }
 
-  .project-title:hover {
+  .project-link:hover {
     color: var(--color-accent);
     border-color: var(--color-accent);
   }
 
-  .project-title:hover::after {
+  .project-link:hover::after {
     opacity: 1;
     transform: translate(1px, -1px);
   }
@@ -484,8 +499,83 @@
     }
   }
 
+  .print-only {
+    display: none;
+  }
+
   /* ── Print ── */
   @media print {
+    .screen-only {
+      display: none;
+    }
+
+    .print-only {
+      display: inline;
+    }
+
+    .project-title {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .project-link::after,
+    .edu-description {
+      display: none;
+    }
+
+    .project-tech {
+      margin-top: 2px;
+    }
+
+    .experience-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      column-gap: 8px;
+    }
+
+    .experience-head .experience-meta {
+      margin-left: auto;
+    }
+
+    .experience-item {
+      border-bottom: none !important;
+      padding: 5px 0 !important;
+    }
+
+    .edu-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 1px 0 !important;
+    }
+
+    .skill-section {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 3px !important;
+    }
+
+    .skill-section .skill-category {
+      flex: 0 0 135px;
+      margin: 0 !important;
+    }
+
+    .skill-section .skills-list {
+      margin-bottom: 0 !important;
+    }
+
+    .language-list {
+      display: flex;
+      gap: 24px;
+    }
+
+    .language-list .language-item {
+      border-bottom: none;
+      gap: 6px;
+    }
+
     .skills-game-desktop {
       display: none;
     }
@@ -549,9 +639,12 @@
       page-break-after: avoid;
     }
 
-    .experience-item,
-    .project-item {
+    .experience-item {
       padding: 8px 0;
+    }
+
+    .project-item {
+      padding: 5px 0;
     }
 
     .experience-title {
@@ -598,11 +691,11 @@
 
     .project-description {
       font-size: 0.75rem;
-      margin: 4px 0;
+      margin: 2px 0;
     }
 
     .projects-reason {
-      background: var(--color-accent-light, #fef3c7);
+      background: var(--color-accent-light, #eef2f7);
       font-size: 0.75rem;
       padding: 4px 8px;
       margin-bottom: 6px;
