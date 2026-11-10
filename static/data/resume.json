@@ -5,7 +5,7 @@
   "email": "kevin.sallee@gmail.com",
   "linkedin": "https://www.linkedin.com/in/kevinsallee/",
   "github": "https://github.com/ksallee",
-  "summary": "Engineering lead and senior software engineer with 19 years of experience. I design the architecture, write the code test-first, and set up teams and AI coding agents to work the same way.<br><br>I was Head of Pipeline at Prime Focus, where I hired and grew a team from 3 to 20+ developers, and at Rodeo FX. I then spent six years consulting for Marvel, Netflix and Electronic Arts, covering sales, scoping, estimates, architecture, development and support, followed by product management at Autodesk and co-founding an AI SaaS startup.<br><br>I now build AI products and open source tools. Agents write most of the code, under tests, CI gates and my review.",
+  "summary": "Engineering lead and senior software engineer with 19 years of experience. I decide what to build, design the architecture and lead the team. I build with AI coding agents: they write most of the code, under tests, CI gates and my review.<br><br>I spent six years consulting for Marvel, Netflix, Electronic Arts and Warner Bros Animation, from the sales call and the estimate to architecture, delivery and support. I was then Product Manager at Autodesk for Flow Asset Management, and co-founded an AI SaaS that reached public beta in January 2026.<br><br>Earlier I was Head of Pipeline at two film studios, where I hired and grew one team from 3 to 20+ developers. My recent work is public: open source tools for agent-led development, including the rules and CI gates that two people and their agents use to ship together.",
   "picture": "/me.jpg",
   "skills": {
     "programming": [
@@ -178,7 +178,7 @@
     {
       "company": "Cluster Studio, Duran Duboi, Attitude Studio, The Bakery",
       "title": "Pipeline Developer",
-      "period": "2008 - 2012",
+      "period": "2007 - 2012",
       "duration": "",
       "location": "",
       "description": "• Pipeline and tools for feature films including <i>Jack and the Cuckoo-Clock Heart</i> and <i>The Prodigies</i>; designed animation software at The Bakery"
